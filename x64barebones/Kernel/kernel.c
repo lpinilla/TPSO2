@@ -21,8 +21,6 @@ static void * const sampleDataModuleAddress = (void*)0x500000;
 typedef int (*EntryPoint)();
 
 void initial_info(void);
-void video_tests(void);
-void init_game();
 
 
 void clearBSS(void * bssAddress, uint64_t bssSize)
@@ -71,28 +69,26 @@ void * initializeKernelBinary(){
 	ncNewline();
 	ncNewline();
 
-	//initial_info();
+	initial_info();
 	ncPrint("Loading IDT");
 	ncNewline();
+	load_idt();
 	ncNewline();
 	ncPrint("Done IDT");
 
-	init_graphics();
-	load_idt();
-	to_userland();
-	//video_tests();
+	//init_graphics();
+	
+	//to_userland();
 	//clear_screen();
-	//init_game();
 	return getStackBase();
 }
 
 
 int main()
 {
-	//to_userland();
 	return 0;
 }
-/*
+
 void initial_info(){
 
 	ncPrint("[Kernel Main]");
@@ -116,32 +112,3 @@ void initial_info(){
 	ncClear();
 }
 
-void video_tests(){
-	draw_pixel(100,100, 255,0,0);
-	draw_fill_square(0,0,255,255,255, 10);
-	draw_char('>');
-	draw_string("TPArqui");
-	draw_char(':');
-	for(int i = 0; i < 50; i++){
-		draw_number(i);
-		new_line();
-	}
-	//move_everything_up3();
-	draw_fill_square(300,300, 255,0,255, 100);
-	erase_character();
-	//Writing test
-
-	for(int i = 0; i < 1000; i++){
-		draw_number(i);
-	}
-	for(int i = 0; i < 1000; i++){
-		for(int j = 0; j < number_of_digits(i); j++){
-			erase_character();
-		}
-	}
-	draw_string("Erased!");
-	shadow_fill_square(300,300, 0xFF, 0x0, 0xFF, 100);
-	swap_buffers();
-
-}
-*/
