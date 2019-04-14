@@ -18,8 +18,6 @@ typedef struct t_Node * Node;
 void * start_dir;
 
 Node root, last;
-
-int n_of_nodes;
 size_t total_mem_size;
 
 #endif
