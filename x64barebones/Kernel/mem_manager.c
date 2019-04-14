@@ -1,4 +1,4 @@
-#include <free_list.h>
+#include <mem_manager.h>
 
 void initialize_list(void * start_ptr, size_t total_size){
     struct t_Node first_node = {.next = NULL, .prev = NULL,
