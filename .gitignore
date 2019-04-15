@@ -53,3 +53,9 @@ dkms.conf
 *.vscode/
 
 *.bin
+
+*.img
+
+*.qcow2
+
+*.vmdk
