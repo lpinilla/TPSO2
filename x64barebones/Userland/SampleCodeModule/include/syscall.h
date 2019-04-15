@@ -21,6 +21,8 @@
 #define BEEP 17
 #define SLEEP 18
 #define NEW_LINE 19
+#define MY_MALLOC 20
+#define MY_FREE 21
 
 void sys_write(char * string, int size);
 char sys_read(char * string, int size);
@@ -35,5 +37,7 @@ void sys_beep(void);
 void sys_sleep(int ticks);
 void sys_new_line(void);
 int sys_time(int selector);
+void* sys_my_malloc(int size);
+void sys_my_free(void* ptr);
 
 #endif

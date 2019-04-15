@@ -50,3 +50,12 @@ void sys_sleep(int ticks){
 void sys_beep(){
   _call_int_80(BEEP,0,0,0,0,0);
 }
+
+void* sys_my_malloc(int size){
+	return (void*) _call_int_80(MY_MALLOC,(uint64_t) size,0,0,0,0);
+}
+
+void sys_my_free(void* ptr){
+	_call_int_80(MY_FREE,(uint64_t)ptr,0,0,0,0);
+
+}
