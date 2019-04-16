@@ -1,8 +1,9 @@
-#include <mem_manager.h>
+//incluirlo manualmente para los tests
+#include "./include/mem_manager.h"
 
 void initialize_list(void * start_ptr, size_t total_size){
     struct t_Node first_node = {.next = NULL, .prev = NULL,
-                                .mem_ptr = (void *) (size_t) start_ptr + sizeof(struct t_Node),
+                                .mem_ptr = (void *) ((char *) start_ptr + sizeof(struct t_Node)),
                                 .size = total_size,
                                 .status = F};
     root = last = start_ptr;
@@ -16,7 +17,7 @@ Node add_node(void * node_location, size_t size){
         return NULL;
     }
     struct t_Node n_node = {.next = NULL, .prev = last,
-                            .mem_ptr = (void *) node_location + sizeof(struct t_Node),
+                            .mem_ptr = (void *) ((char *)node_location + sizeof(struct t_Node)),
                             .size = size - sizeof(struct t_Node),
                             .status = F};
     n_node.prev = last;
@@ -49,6 +50,7 @@ Node find_first_fit(Node curr, size_t size){
 
 void * mem_alloc(size_t size){
     Node ret = find_first_fit(root, size);
+    if(ret == NULL) return NULL;
     return ret->mem_ptr;
 }
 
