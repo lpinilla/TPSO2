@@ -1,4 +1,5 @@
 #include <syscall_dispacher.h>
+
 // usamos la convencion de linux y c para los parametros de las syscalls
 uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rcx, uint64_t r8, uint64_t r9) {
   switch(rdi){
@@ -50,8 +51,11 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
       case NEW_LINE:
         new_line();
         break;
-      // case MY_MALLOC:
-      //   return my_ma
+      case MY_MALLOC:
+        return (uint64_t) mem_alloc(rsi); //VERRR!!
+      case MY_FREE:
+        free_mem((void*) rsi);
+        break;
   }
 	return 0;
 }

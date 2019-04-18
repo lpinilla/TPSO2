@@ -7,6 +7,7 @@
 #include <rtc.h>
 #include <sound.h>
 #include <time.h>
+#include <stddef.h>
 
 
 #define READ 3
@@ -26,6 +27,12 @@
 #define BEEP 17
 #define SLEEP 18
 #define NEW_LINE 19
+#define MY_MALLOC 20
+#define MY_FREE 21
+
+//si pongo #include <mem_manager.h> se rompe
+void * mem_alloc(size_t size);
+void free_mem(void * ptr);
 
 int read(int param1, char * param2, int param3);
 void write(int param1, char * param2, int param3);
