@@ -1,11 +1,12 @@
-#include <mem_manager.h>
+#include "./include/mem_manager.h"
+#include "./include/syscall.h"
 
 
-void* my_malloc(int size){
+void * my_malloc(int size){
     if(size<0){
         return NULL;
     }
-    return sys_my_malloc(size);
+    return (void *) sys_my_malloc(size);
 }
 
 void my_free(void* ptr){

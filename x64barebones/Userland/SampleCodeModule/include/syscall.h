@@ -1,28 +1,8 @@
-#ifndef _SYSCALL_H
-#define _SYSCALL_H
+#ifndef _SYSCALL_H_
+#define _SYSCALL_H_
 
 #include <stdint.h>
-#include <call_int_80.h>
-
-#define READ 3
-#define WRITE 4
-#define DRAW_PIXEL 5
-#define X_RES 6
-#define Y_RES 7
-#define CLEAR_SCREEN 8
-#define SHADOW_PIXEL 9
-#define MOVE_EVERYTHING_UP 10
-#define SWAP_BUFFERS 11
-#define CLEAR_SHADOW_BUFFER 12
-#define TIME 13
-#define INIT_GRAPHICS 14
-#define COLOR_WRITE 15
-#define RESET_CURSOR 16
-#define BEEP 17
-#define SLEEP 18
-#define NEW_LINE 19
-#define MY_MALLOC 20
-#define MY_FREE 21
+#include "./call_int_80.h"
 
 void sys_write(char * string, int size);
 char sys_read(char * string, int size);
@@ -37,7 +17,7 @@ void sys_beep(void);
 void sys_sleep(int ticks);
 void sys_new_line(void);
 int sys_time(int selector);
-void* sys_my_malloc(int size);
+void * sys_my_malloc(int size);
 void sys_my_free(void* ptr);
 
 #endif
