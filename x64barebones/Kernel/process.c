@@ -12,12 +12,13 @@ typedef struct {
     char * stack;
 } process_t;
 
-void create_process(){
+process_t * create_process(){
     process_t * new_process = mem_alloc(sizeof(process_t));
     new_process->pid = global_pid;
     global_pid++;
     new_process->state = P_START;
     new_process->stack = mem_alloc(sizeof(STACK_SIZE));
+    return new_process;
 }
 
 void delete_process(process_t * process){
