@@ -29,3 +29,7 @@ void delete_process(process_t * process){
     free_mem(process->stack);
     free_mem(process);
 }
+
+void set_state(process_t * process, pstate_t state){
+    process->state = state;
+}
