@@ -14,12 +14,14 @@ typedef struct {
     char * last_inst;
 } process_t;
 
-process_t * create_process(){
+process_t * create_process(char * first_inst, char * last_inst){
     process_t * new_process = mem_alloc(sizeof(process_t));
     new_process->pid = global_pid;
     global_pid++;
     new_process->state = P_START;
     new_process->stack = mem_alloc(sizeof(STACK_SIZE));
+    new_process->first_inst = first_inst;
+    new_process->last_inst = last_inst; 
     return new_process;
 }
 
