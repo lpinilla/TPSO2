@@ -10,6 +10,8 @@ typedef struct {
     size_t pid;
     pstate_t state;
     char * stack;
+    char * first_inst;
+    char * last_inst;
 } process_t;
 
 process_t * create_process(){
