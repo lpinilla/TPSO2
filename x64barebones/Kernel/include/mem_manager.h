@@ -15,12 +15,6 @@ struct t_Node{
 
 typedef struct t_Node * Node;
 
-void * start_dir;
-
-Node root, last;
-size_t total_mem_size;
-
-
 /*función para inicializar la memoria dado un puntero inicial y el tamaño
 **total de la memoria*/
 void initialize_list(void * start_ptr, size_t total_size);
@@ -43,6 +37,9 @@ void free_mem(void * ptr);
 
 //función para liberar un nodo de la lista (de ser necesario, elimilandolo) 
 Node free_node(Node curr, void * mem_ptr);
+
+//devuelve un puntero al inicio de la memoria
+void * return_memory_base();
 
 #endif
 

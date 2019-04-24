@@ -56,9 +56,12 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
       case MY_FREE:
         free_mem((void*) rsi);
         break;
+      case MEM_BASE:
+        return return_memory_base();
   }
 	return 0;
 }
+
 void color_write(char * pointer, int size, int foreground_color, int background_color){
   draw_n_chars_color(pointer,size,foreground_color,background_color);
 }

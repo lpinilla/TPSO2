@@ -13,6 +13,7 @@ DEFINE Y DESPUES EN EL VECTOR DE STRINGS ENE EL NUMERO DEL DEFINE -1 (podriamos 
 #include <pong.h>
 #include <openlg.h>
 #include <time.h>
+#include <mem_manager.h>
 
 #define RETURN_ADRESS 0xDEADC0DE
 

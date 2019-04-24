@@ -12,3 +12,7 @@ void * my_malloc(int size){
 void my_free(void* ptr){
     sys_my_free(ptr);
 }
+
+void * start_of_memory(){
+    sys_start_of_mem();
+}

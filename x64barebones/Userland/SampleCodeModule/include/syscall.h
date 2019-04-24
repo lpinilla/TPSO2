@@ -19,5 +19,6 @@ void sys_new_line(void);
 int sys_time(int selector);
 void * sys_my_malloc(int size);
 void sys_my_free(void* ptr);
+void * sys_start_of_mem();
 
 #endif

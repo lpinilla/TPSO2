@@ -29,6 +29,7 @@
 #define NEW_LINE 19
 #define MY_MALLOC 20
 #define MY_FREE 21
+#define MEM_BASE 22
 
 //si pongo #include <mem_manager.h> se rompe
 void * mem_alloc(size_t size);

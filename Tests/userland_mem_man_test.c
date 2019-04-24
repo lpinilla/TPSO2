@@ -8,16 +8,11 @@ void malloc_test();
 int main(void){
     create_suite("Testing the Memory Manager");
     //agregando los tests
-    //add_test(malloc_test);
+    add_test(malloc_test);
     //correr la suite
     run_suite();
     //liberar los espacios
     clear_suite();
-}
-
-void dumb_test(){
-    printf("asd\n");
-    assert_true(1);
 }
 
 //test que traté de hacer para ver si desde userland funcionaba "conectarse" a la memoria
@@ -30,11 +25,16 @@ void malloc_test(){
     initialize_list(mem, mem_size);     //importante llamar a que el kernel inicialice la memoria
     //----kernel
     //user
-    ptr = (char *) my_malloc(mem_size / 10);
+    ptr = (char *) my_malloc(mem_size / 100);
     if(ptr == NULL) exit(EXIT_FAILURE);
+    printf("todo ok \n");
+    printf("%p \n", mem);
+    printf("%p \n", ptr);
     for(int i = 0; i < 10; i++){
+        printf("quiero printear\n");
         ptr[i] = i + '0';
     }
+    printf("todo ok2 \n");
     //checkear que de verdad se escribió eso
     int ret = 0;
     for(int i = 0; i < 10; i++){

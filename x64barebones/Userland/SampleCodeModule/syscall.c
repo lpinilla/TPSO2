@@ -19,6 +19,7 @@
 #define NEW_LINE 19
 #define MY_MALLOC 20
 #define MY_FREE 21
+#define MEM_BASE 22
 
 void sys_write(char * string, int size){
   _call_int_80( (uint64_t) WRITE, 1, (uint64_t) string, (uint64_t)size, 0, 0);
@@ -81,5 +82,8 @@ void* sys_my_malloc(int size){
 
 void sys_my_free(void* ptr){	
 	_call_int_80(MY_FREE,(uint64_t) ptr,0,0,0,0);
+}
 
+void * sys_start_of_mem(){
+	return (void *) _call_int_80(MEM_BASE, 0, 0,0,0,0);
 }

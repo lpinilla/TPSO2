@@ -6,6 +6,7 @@
 #include <graphics.h>
 #include <time.h>
 #include <idt_loader.h>
+#include <mem_manager.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -17,6 +18,7 @@ static const uint64_t PageSize = 0x1000;
 
 static void * const sampleCodeModuleAddress = (void*)0x400000;
 static void * const sampleDataModuleAddress = (void*)0x500000;
+static void * const memory_location = (void *) 0x700000;
 
 typedef int (*EntryPoint)();
 
@@ -69,16 +71,25 @@ void * initializeKernelBinary(){
 	ncNewline();
 	ncNewline();
 
-	initial_info();
+	initialize_list(memory_location, 1024*1024); //creo que le puse 1mb de memoria
+	*((char *) memory_location)='h';
+	*((char *) memory_location + 1)='o';
+	*((char *) memory_location + 2)='l';
+	*((char *) memory_location + 3)='a';
+	init_graphics();
+	//initial_info();
+	
 	ncPrint("Loading IDT");
 	ncNewline();
 	load_idt();
 	ncNewline();
 	ncPrint("Done IDT");
 
-	//init_graphics();
 	
-	//to_userland();
+	/*ncPrint("Initial address of memory");
+	ncPrintHex((uint64_t)&memory_location);*/
+	
+	to_userland();
 	//clear_screen();
 	return getStackBase();
 }

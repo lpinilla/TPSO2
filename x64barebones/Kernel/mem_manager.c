@@ -1,6 +1,11 @@
 //incluirlo manualmente para los tests
 #include "./include/mem_manager.h"
 
+void * start_dir;
+
+Node root, last;
+size_t total_mem_size;
+
 void initialize_list(void * start_ptr, size_t total_size){
     struct t_Node first_node = {.next = NULL, .prev = NULL,
                                 .mem_ptr = (void *) ((char *) start_ptr + sizeof(struct t_Node)),
@@ -10,6 +15,10 @@ void initialize_list(void * start_ptr, size_t total_size){
     memcpy(start_ptr, &first_node, sizeof(struct t_Node));
     start_dir = start_ptr;
     total_mem_size = total_size;
+}
+
+void * return_memory_base(){
+    return start_dir;
 }
 
 Node add_node(void * node_location, size_t size){ 
