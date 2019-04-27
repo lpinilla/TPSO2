@@ -53,6 +53,7 @@ dkms.conf
 *.vscode/
 
 *.bin
+*.sys
 
 *.img
 
