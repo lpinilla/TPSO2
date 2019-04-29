@@ -14,7 +14,7 @@ typedef struct listADT{
     int size;
 }listADT;
 
-//static int copyElement(void *buffer, void *element, unsigned int elementSize);
+static int copyElement(void *buffer, void *element, unsigned int elementSize);
 
 list_t newList() {
 	list_t list = mem_alloc(sizeof(struct listADT));
