@@ -10,8 +10,7 @@ static size_t global_pid;
 typedef struct {
     size_t pid;
     pstate_t state;
-    char * stack;
-    char * process_start;
+    char * stack_pointer;
 } processADT;
 
 process_t create_process(void * process_start){
@@ -20,7 +19,6 @@ process_t create_process(void * process_start){
     global_pid++;
     new_process->state = P_READY;
     new_process->stack = mem_alloc(sizeof(STACK_SIZE));
-    new_process->process_start = process_start;
     return new_process;
 }
 

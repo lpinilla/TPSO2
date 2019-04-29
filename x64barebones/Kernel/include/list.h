@@ -17,6 +17,7 @@
 typedef struct listADT *list_t;
 
 #include <lib.h>
+#include <mem_manager.h>
 
 list_t newList();
 

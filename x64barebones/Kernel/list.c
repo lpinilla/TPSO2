@@ -1,4 +1,4 @@
-#include "include/list.h"
+#include <list.h>
 
 typedef struct nodeADT *node_t;
 
@@ -14,10 +14,10 @@ typedef struct listADT{
     int size;
 }listADT;
 
-static int copyElement(void *buffer, void *element, unsigned int elementSize);
+//static int copyElement(void *buffer, void *element, unsigned int elementSize);
 
 list_t newList() {
-	list_t list = allocateMemory(sizeof(struct listADT));
+	list_t list = mem_alloc(sizeof(struct listADT));
 	list->head = NULL;
 	list->size = 0;
 	return list;
@@ -29,8 +29,8 @@ int addElement(list_t list, const void *element, const unsigned int size) {
     if(element == NULL) return NULL_ELEMENT_ERROR;
     if(size == 0)  return SIZE_ERROR;
 
-	node_t newNode = (node_t) allocateMemory(sizeof(nodeADT));
-    newNode->element = allocateMemory(size);
+	node_t newNode = (node_t) mem_alloc(sizeof(nodeADT));
+    newNode->element = mem_alloc(size);
     newNode->size = size;
     newNode->next = NULL;
     memcpy(newNode->element,element,size);
@@ -90,7 +90,7 @@ int removeFirst(list_t list) {
 	node_t aux;
 	aux = list->head;
 	list->head = list->head->next;
-	freeMemory(aux);
+	free_mem(aux);
 	list->size--;
 	return REMOTION_OK;
 }
@@ -102,8 +102,8 @@ int removeAndFreeFirst(list_t list) {
 	node_t aux;
 	aux = list->head;
 	list->head = list->head->next;
-	freeMemory(aux->element);
-	freeMemory(aux);
+	free_mem(aux->element);
+	free_mem(aux);
 	list->size--;
 	return REMOTION_OK;
 }
@@ -184,8 +184,8 @@ int removeAndFreeFirstElementByCriteria(list_t list,
 			if((*compareTo)(reference,aux->element) == 0) {
                 list->size--;
 				aux2 = aux->next;
-				freeMemory(aux->element);
-				freeMemory(aux);
+				free_mem(aux->element);
+				free_mem(aux);
 				if(firstLoop == 1){
 					list->head = aux2;
 				}else {
@@ -219,7 +219,7 @@ int removeFirstElementByCriteria(list_t list,int (*compareTo)(const void * , con
 			if((*compareTo)(reference,aux->element) == 0) {
                 list->size--;
 				aux2 = aux->next;
-				freeMemory(aux);
+				free_mem(aux);
 				if(firstLoop == 1){
 					list->head = aux2;
 				}else {
@@ -259,5 +259,5 @@ void *getFirstElementReferece(list_t list) {
 }
 
 void freeList(list_t list) {
-	freeMemory(list);
+	free_mem(list);
 }
