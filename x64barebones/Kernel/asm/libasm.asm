@@ -35,4 +35,4 @@ context_switch:
 	call switch_process
 	mov rsp, rax
 	pop_all
-	ret
+	iretq
