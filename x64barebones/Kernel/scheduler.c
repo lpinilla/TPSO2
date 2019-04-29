@@ -1,14 +1,10 @@
 #include <scheduler.h>
-#include <list.h>
-#include "process.c"
 
 typedef struct schedulerADT{
     list_t p_ready;
     list_t p_waiting;
     list_t p_terminate;
 } schedulerADT;
-
-typedef schedulerADT * scheduler_t;
 
 static scheduler_t scheduler;
 

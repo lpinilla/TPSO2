@@ -1,7 +1,6 @@
 GLOBAL cpuVendor
+GLOBAL context_switch
 
-EXTERN push_all
-EXTERN pop_all
 EXTERN switch_process
 
 section .text
@@ -36,3 +35,4 @@ context_switch:
 	call switch_process
 	mov rsp, rax
 	pop_all
+	ret

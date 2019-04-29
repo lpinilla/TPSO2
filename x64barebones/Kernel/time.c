@@ -2,11 +2,13 @@
 #include <time.h>
 #include <naiveConsole.h>
 #include <graphics.h> // testeando
+#include <lib.h>
 
 static unsigned long ticks = 0;
 
-void timer_handler() {
+void timer_handler(void * stack_pointer) {
 	ticks++;
+	context_switch(stack_pointer);
 }
 
 int ticks_elapsed() {

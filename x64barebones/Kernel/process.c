@@ -1,8 +1,4 @@
-#include <stdlib.h>
-
-#define STACK_SIZE 4096
-
-typedef enum {P_READY, P_RUNNING, P_WAITING, P_TERMINATE} pstate_t;
+#include <process.h>
 
 static size_t global_pid;
 
@@ -11,8 +7,6 @@ typedef struct processADT {
     pstate_t state;
     char * stack_pointer;
 } processADT;
-
-typedef processADT * process_t;
 
 process_t create_process(void * process_start){
     process_t new_process = mem_alloc(sizeof(processADT));
