@@ -6,6 +6,13 @@
 #define STACK_SIZE 4096
 
 typedef enum {P_READY, P_RUNNING, P_WAITING, P_TERMINATE} pstate_t;
+
+typedef struct processADT {
+    size_t pid;
+    pstate_t state;
+    char * stack_pointer;
+} processADT;
+
 typedef struct processADT * process_t;
 
 process_t create_process(void * process_start);
