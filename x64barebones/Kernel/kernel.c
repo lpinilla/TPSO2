@@ -89,8 +89,6 @@ void * initializeKernelBinary(){
 	load_idt();
 	ncNewline();
 	ncPrint("Done IDT");
-
-	
 	/*ncPrint("Initial address of memory");
 	ncPrintHex((uint64_t)&memory_location);*/
 	//clear_screen();
@@ -100,8 +98,7 @@ void * initializeKernelBinary(){
 
 int main()
 {
-	draw_string("Hola \n");
-	//to_userland();
+	to_userland();
 	// inicializamos el scheduler
 	init_scheduler(scheduler);
 	// creamos el proceso testing 1

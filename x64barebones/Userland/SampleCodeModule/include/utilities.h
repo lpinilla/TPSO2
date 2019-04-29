@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <syscall.h>
 #include <string.h>
-
+#include <stdint.h>
 
 #define MAX_BUFFER 100
 #define TRUE 1
