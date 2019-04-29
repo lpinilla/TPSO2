@@ -34,6 +34,7 @@
 //si pongo #include <mem_manager.h> se rompe
 void * mem_alloc(size_t size);
 void free_mem(void * ptr);
+void * return_memory_base();
 
 int read(int param1, char * param2, int param3);
 void write(int param1, char * param2, int param3);

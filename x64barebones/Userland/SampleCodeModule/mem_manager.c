@@ -14,5 +14,5 @@ void my_free(void* ptr){
 }
 
 void * start_of_memory(){
-    sys_start_of_mem();
+   return  sys_start_of_mem();
 }

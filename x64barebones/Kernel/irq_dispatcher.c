@@ -20,7 +20,7 @@ void irq_dispatcher(uint64_t irq) {
 }
 
 void int_20() {
-	timer_handler();
+	//timer_handler();
 }
 
 void int_21() {

@@ -24,6 +24,8 @@ void add_process(scheduler_t scheduler, process_t process){
         case P_TERMINATE:
             addElement(scheduler->p_terminate, process, sizeof(*process));
             break;
+        case P_RUNNING:
+            break; //ver!
     }
 }
 
