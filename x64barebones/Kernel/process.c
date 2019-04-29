@@ -2,7 +2,7 @@
 
 #define STACK_SIZE 4096
 
-typedef enum {P_START, P_READY, P_RUNNING, P_WAITING, P_TERMINATE} pstate_t;
+typedef enum {P_READY, P_RUNNING, P_WAITING, P_TERMINATE} pstate_t;
 
 static size_t global_pid;
 
@@ -17,7 +17,7 @@ process_t * create_process(void * process_start){
     process_t * new_process = mem_alloc(sizeof(process_t));
     new_process->pid = global_pid;
     global_pid++;
-    new_process->state = P_START;
+    new_process->state = P_READY;
     new_process->stack = mem_alloc(sizeof(STACK_SIZE));
     new_process->process_start = process_start;
     return new_process;
