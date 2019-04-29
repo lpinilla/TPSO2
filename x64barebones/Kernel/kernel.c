@@ -100,6 +100,7 @@ void * initializeKernelBinary(){
 
 int main()
 {
+	draw_string("Hola \n");
 	//to_userland();
 	// inicializamos el scheduler
 	init_scheduler(scheduler);
@@ -115,12 +116,12 @@ int main()
 
 void testing_process1(){
 	while(1){
-		ncPrint("Soy el proceso 1 \n");
+		draw_string("Soy el proceso 1 \n");
 	}
 }
 void testing_process2(){
 	while(1){
-		ncPrint("Soy el proceso 2 \n");
+		draw_string("Soy el proceso 2 \n");
 	}
 }
 
