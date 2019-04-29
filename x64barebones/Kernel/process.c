@@ -10,18 +10,16 @@ typedef struct {
     size_t pid;
     pstate_t state;
     char * stack;
-    char * first_inst;
-    char * last_inst;
+    char * process_start;
 } process_t;
 
-process_t * create_process(char * first_inst, char * last_inst){
+process_t * create_process(void * process_start){
     process_t * new_process = mem_alloc(sizeof(process_t));
     new_process->pid = global_pid;
     global_pid++;
     new_process->state = P_START;
     new_process->stack = mem_alloc(sizeof(STACK_SIZE));
-    new_process->first_inst = first_inst;
-    new_process->last_inst = last_inst; 
+    new_process->process_start = process_start;
     return new_process;
 }
 
