@@ -6,8 +6,6 @@ typedef struct schedulerADT{
     list_t p_terminate;
 } schedulerADT;
 
-static scheduler_t scheduler;
-
 void init_scheduler(){
     scheduler->p_ready= newList();
     scheduler->p_waiting = newList();

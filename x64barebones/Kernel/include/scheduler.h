@@ -6,6 +6,8 @@
 
 typedef struct schedulerADT * scheduler_t;
 
+static scheduler_t scheduler;
+
 void init_scheduler();
 void add_process(scheduler_t scheduler, process_t process);
 void * switch_process(void * stack_pointer);

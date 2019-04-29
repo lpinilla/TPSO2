@@ -7,6 +7,8 @@
 #include <time.h>
 #include <idt_loader.h>
 #include <mem_manager.h>
+#include <process.h>
+#include <scheduler.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -19,6 +21,9 @@ static const uint64_t PageSize = 0x1000;
 static void * const sampleCodeModuleAddress = (void*)0x400000;
 static void * const sampleDataModuleAddress = (void*)0x500000;
 static void * const memory_location = (void *) 0x700000;
+
+void testing_process1();
+void testing_process2();
 
 typedef int (*EntryPoint)();
 
@@ -88,8 +93,6 @@ void * initializeKernelBinary(){
 	
 	/*ncPrint("Initial address of memory");
 	ncPrintHex((uint64_t)&memory_location);*/
-	
-	to_userland();
 	//clear_screen();
 	return getStackBase();
 }
@@ -97,7 +100,28 @@ void * initializeKernelBinary(){
 
 int main()
 {
+	//to_userland();
+	// inicializamos el scheduler
+	init_scheduler(scheduler);
+	// creamos el proceso testing 1
+	process_t t1 = create_process(testing_process1);
+	// creamos el proceso testing 2
+	process_t t2 = create_process(testing_process2);
+	// lo agregamos al scheduler
+	add_process(scheduler, t1);
+	add_process(scheduler, t2);
 	return 0;
+}
+
+void testing_process1(){
+	while(1){
+		ncPrint("Soy el proceso 1 \n");
+	}
+}
+void testing_process2(){
+	while(1){
+		ncPrint("Soy el proceso 2 \n");
+	}
 }
 
 void initial_info(){
