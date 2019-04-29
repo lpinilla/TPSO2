@@ -33,7 +33,7 @@ void add_process(scheduler_t scheduler, process_t process){
     }
 }
 
-void * execute_scheduler(void * stack_pointer){
+void * switch_process(void * stack_pointer){
     process_t actual = getFirstElementReferece(scheduler->p_ready);
     actual->stack_pointer = stack_pointer;
     removeFirst(scheduler->p_ready);
