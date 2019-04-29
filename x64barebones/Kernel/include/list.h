@@ -14,42 +14,42 @@
 #define NULL 0
 
 
-typedef struct list_t *listObject_t;
+typedef struct listADT *list_t;
 
 #include <lib.h>
 
-listObject_t newList();
+list_t newList();
 
-int addElement(listObject_t list, const void *element, const unsigned int size);
+int addElement(list_t list, const void *element, const unsigned int size);
 
-int getElementOnIndex(listObject_t list, void *buffer, const unsigned int index);
+int getElementOnIndex(list_t list, void *buffer, const unsigned int index);
 
-int getFirstElementByCriteria(listObject_t list,int (*compareTo)(const void * , const void * ),
+int getFirstElementByCriteria(list_t list,int (*compareTo)(const void * , const void * ),
                                                              const void * reference, void * buffer);
 
-int getFirstElement(listObject_t list,void * buffer);
+int getFirstElement(list_t list,void * buffer);
 
-void *getFirstElementReferenceByCriteria(listObject_t list, int (*compareTo)(const void *, const void * ),const void *reference);
+void *getFirstElementReferenceByCriteria(list_t list, int (*compareTo)(const void *, const void * ),const void *reference);
 
-void *getFirstElementReferece(listObject_t list);
+void *getFirstElementReferece(list_t list);
 
-int size(listObject_t list);
+int size(list_t list);
 
-int contains(listObject_t list, int (*compareTo)(const void * , const void * ), const void *reference);
+int contains(list_t list, int (*compareTo)(const void * , const void * ), const void *reference);
 
-int removeFirst(listObject_t list);
+int removeFirst(list_t list);
 
-int removeAndFreeFirst(listObject_t list);
+int removeAndFreeFirst(list_t list);
 
-int removeFirstElementByCriteria(listObject_t list,int (*compareTo)(const void * , const void * ),
+int removeFirstElementByCriteria(list_t list,int (*compareTo)(const void * , const void * ),
                                                                                 const void *reference);
 
-int removeAndFreeFirstElementByCriteria(listObject_t list,int (*compareTo)(const void * , const void * ),
+int removeAndFreeFirstElementByCriteria(list_t list,int (*compareTo)(const void * , const void * ),
                                                                                      const void *reference);
 
-int removeAllElements(listObject_t list);
+int removeAllElements(list_t list);
 
-int removeAndFreeAllElements(listObject_t list);
+int removeAndFreeAllElements(list_t list);
 
 void freeList();
 
