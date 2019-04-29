@@ -34,3 +34,7 @@ void set_state(process_t process, pstate_t state){
 pstate_t get_state(process_t process){
     return process->state;
 }
+
+void set_stack_pointer(process_t process, void * stack_pointer){
+    process->stack_pointer=stack_pointer;
+}
