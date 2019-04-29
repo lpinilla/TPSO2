@@ -61,9 +61,9 @@ void * initializeKernelBinary(){
 
 	initialize_list(memory_location, 1024*1024); //creo que le puse 1mb de memoria
 	init_graphics();
-	load_idt();
 	// inicializamos el scheduler
 	init_scheduler(scheduler);
+	load_idt();
 	// creamos el proceso testing 1
 	process_t t1 = create_process(testing_process1);
 	// creamos el proceso testing 2
