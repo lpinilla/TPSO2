@@ -11,10 +11,6 @@
 #define FALSE 0
 #define TRUE 1
 #define NULL_FUNCTION_POINTER -4
-<<<<<<< HEAD
-=======
-//#define NULL 0 usamos el de string.h
->>>>>>> e10812d9a8337c60d9e039b707f9cebc588b5f29
 
 
 typedef struct listADT *list_t;
