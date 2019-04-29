@@ -35,7 +35,7 @@ void add_process(scheduler_t scheduler, process_t process){
 
 void * switch_process(void * stack_pointer){
     process_t actual = getFirstElementReferece(scheduler->p_ready);
-    actual->stack_pointer = stack_pointer;
+    set_stack_pointer(actual, stack_pointer);
     removeFirst(scheduler->p_ready);
     addElement(scheduler->p_ready, actual, sizeof(*actual));
     actual = getFirstElementReferece(scheduler->p_ready);

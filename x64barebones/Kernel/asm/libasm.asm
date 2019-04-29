@@ -1,5 +1,9 @@
 GLOBAL cpuVendor
 
+EXTERN push_all
+EXTERN pop_all
+EXTERN switch_process
+
 section .text
 	
 cpuVendor:
@@ -25,3 +29,10 @@ cpuVendor:
 	mov rsp, rbp
 	pop rbp
 	ret
+
+context_switch:
+	push_all
+	mov rax, rsp
+	call switch_process
+	mov rsp, rax
+	pop_all
