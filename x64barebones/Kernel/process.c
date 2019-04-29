@@ -1,4 +1,6 @@
 #include <process.h>
+#include <stdlib.h>
+#include <mem_manager.h>
 
 static size_t global_pid;
 

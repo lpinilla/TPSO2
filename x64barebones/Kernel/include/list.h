@@ -11,11 +11,12 @@
 #define FALSE 0
 #define TRUE 1
 #define NULL_FUNCTION_POINTER -4
-#define NULL 0
+//#define NULL 0 usamos el de string.h
 
 
 typedef struct listADT *list_t;
 
+#include <string.h>
 #include <lib.h>
 #include <mem_manager.h>
 
