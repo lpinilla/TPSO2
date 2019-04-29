@@ -11,6 +11,7 @@
 #define FALSE 0
 #define TRUE 1
 #define NULL_FUNCTION_POINTER -4
+#define NULL 0
 
 
 typedef struct list_t *listObject_t;
