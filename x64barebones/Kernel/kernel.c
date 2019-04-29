@@ -60,10 +60,6 @@ void * initializeKernelBinary(){
 	clearBSS(&bss, &endOfKernel - &bss);
 
 	initialize_list(memory_location, 1024*1024); //creo que le puse 1mb de memoria
-	*((char *) memory_location)='h';
-	*((char *) memory_location + 1)='o';
-	*((char *) memory_location + 2)='l';
-	*((char *) memory_location + 3)='a';
 	init_graphics();
 	load_idt();
 	draw_string("Hola1 \n");
