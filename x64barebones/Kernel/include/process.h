@@ -2,6 +2,8 @@
 #define _PROCESS_H
 
 #include <stdlib.h>
+#include <mem_manager.h>
+#include <stdint.h>
 
 #define STACK_SIZE 4096
 
