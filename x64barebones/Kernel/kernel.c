@@ -62,20 +62,16 @@ void * initializeKernelBinary(){
 	initialize_list(memory_location, 1024*1024); //creo que le puse 1mb de memoria
 	init_graphics();
 	load_idt();
-	draw_string("Hola1 \n");
 	// inicializamos el scheduler
 	init_scheduler(scheduler);
-	draw_string("Hola2 \n");
 	// creamos el proceso testing 1
 	process_t t1 = create_process(testing_process1);
-	draw_string("Hola3 \n");
 	// creamos el proceso testing 2
 	process_t t2 = create_process(testing_process2);
 	draw_string("Hola4 \n");
 	// lo agregamos al scheduler
 	add_process(scheduler, t1);
 	add_process(scheduler, t2);
-	draw_string("Hola \n");
 	/*ncPrint("Initial address of memory");
 	ncPrintHex((uint64_t)&memory_location);*/
 	//clear_screen();

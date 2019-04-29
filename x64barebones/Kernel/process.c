@@ -37,13 +37,10 @@ typedef struct {
 process_t create_process(void * process_start){
     process_t new_process = mem_alloc(sizeof(processADT));
     new_process->pid = global_pid;
-	draw_number(new_process->pid);
     global_pid++;
     new_process->state = P_READY;
     new_process->stack_pointer = mem_alloc(sizeof(STACK_SIZE));
-	draw_string("Llegue");
     new_process->stack_pointer = init_stack(new_process, new_process->stack_pointer);
-	draw_string("No llegue");
     return new_process;
 }
 
@@ -64,8 +61,10 @@ void set_stack_pointer(process_t process, void * stack_pointer){
 }
 
 static void * init_stack(void * process_start, void * stack_pointer) {
-    stack_t * frame = (stack_t *) stack_pointer - 1;
+    stack_t * frame = (stack_t *) (stack_pointer + STACK_SIZE - sizeof( *frame) - 1);
+	draw_string("Llegue1");
 	frame->gs = 0x000;
+	draw_string("Llegue2");
 	frame->fs =	0x000;
 	frame->r15 = 0x000;
 	frame->r14 = 0x000;
