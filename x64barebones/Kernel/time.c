@@ -6,9 +6,9 @@
 
 static unsigned long ticks = 0;
 
-void timer_handler(void * stack_pointer) {
+void timer_handler() {
 	ticks++;
-	context_switch(stack_pointer);
+	//context_switch();
 }
 
 int ticks_elapsed() {
