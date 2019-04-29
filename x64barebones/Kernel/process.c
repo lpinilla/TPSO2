@@ -1,7 +1,8 @@
 #include <process.h>
+#include <graphics.h>
 
 static size_t global_pid;
-static void * init_stack(void * process_start, process_t process); 
+static void * init_stack(void * process_start, void * stack_pointer); 
 
 typedef struct {
 	//Registers restore context
@@ -36,10 +37,13 @@ typedef struct {
 process_t create_process(void * process_start){
     process_t new_process = mem_alloc(sizeof(processADT));
     new_process->pid = global_pid;
+	draw_number(new_process->pid);
     global_pid++;
     new_process->state = P_READY;
     new_process->stack_pointer = mem_alloc(sizeof(STACK_SIZE));
-    new_process->stack_pointer = init_stack(new_process, process_start);
+	draw_string("Llegue");
+    new_process->stack_pointer = init_stack(new_process, new_process->stack_pointer);
+	draw_string("No llegue");
     return new_process;
 }
 
@@ -59,26 +63,26 @@ void set_stack_pointer(process_t process, void * stack_pointer){
     process->stack_pointer=stack_pointer;
 }
 
-static void * init_stack(void * process_start, process_t process) {
-    stack_t * frame = (stack_t *)process->stack_pointer - 1;
-	frame->gs =		0x001;
-	frame->fs =		0x002;
-	frame->r15 =	0x003;
-	frame->r14 =	0x004;
-	frame->r13 =	0x005;
-	frame->r12 =	0x006;
-	frame->r11 =	0x007;
-	frame->r10 =	0x008;
-	frame->r9 =		0x009;
-	frame->r8 =		0x00A;
-	frame->rsi =	0x00B;
-	frame->rdi =	0x00C;
-	frame->rbp =	0x00D;
-	frame->rdx =	0x00E;
-	frame->rcx =	0x00F;
-	frame->rbx =	0x010;
-	frame->rax =	0x011;
-	frame->rip =	(uint64_t)process_start;
+static void * init_stack(void * process_start, void * stack_pointer) {
+    stack_t * frame = (stack_t *) stack_pointer - 1;
+	frame->gs = 0x000;
+	frame->fs =	0x000;
+	frame->r15 = 0x000;
+	frame->r14 = 0x000;
+	frame->r13 = 0x000;
+	frame->r12 = 0x000;
+	frame->r11 = 0x000;
+	frame->r10 = 0x000;
+	frame->r9 =	0x000;
+	frame->r8 =	0x000;
+	frame->rsi = 0x000;
+	frame->rdi = 0x000;
+	frame->rbp = 0x000;
+	frame->rdx = 0x000;
+	frame->rcx = 0x000;
+	frame->rbx = 0x000;
+	frame->rax = 0x000;
+	frame->rip =	(uint64_t)&process_start;
 	frame->cs =		0x008;
 	frame->eflags = 0x202;
 	frame->rsp =	(uint64_t)&(frame->base);
