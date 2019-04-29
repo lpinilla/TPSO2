@@ -59,36 +59,27 @@ void * initializeKernelBinary(){
 	loadModules(&endOfKernelBinary, moduleAddresses);
 	clearBSS(&bss, &endOfKernel - &bss);
 
-
-	ncPrint("  text: 0x");
-	ncPrintHex((uint64_t)&text);
-	ncNewline();
-	ncPrint("  rodata: 0x");
-	ncPrintHex((uint64_t)&rodata);
-	ncNewline();
-	ncPrint("  data: 0x");
-	ncPrintHex((uint64_t)&data);
-	ncNewline();
-	ncPrint("  bss: 0x");
-	ncPrintHex((uint64_t)&bss);
-	ncNewline();
-	ncPrint("[Done]");
-	ncNewline();
-	ncNewline();
-
 	initialize_list(memory_location, 1024*1024); //creo que le puse 1mb de memoria
 	*((char *) memory_location)='h';
 	*((char *) memory_location + 1)='o';
 	*((char *) memory_location + 2)='l';
 	*((char *) memory_location + 3)='a';
 	init_graphics();
-	//initial_info();
-	
-	ncPrint("Loading IDT");
-	ncNewline();
 	load_idt();
-	ncNewline();
-	ncPrint("Done IDT");
+	draw_string("Hola1 \n");
+	// inicializamos el scheduler
+	init_scheduler(scheduler);
+	draw_string("Hola2 \n");
+	// creamos el proceso testing 1
+	process_t t1 = create_process(testing_process1);
+	draw_string("Hola3 \n");
+	// creamos el proceso testing 2
+	process_t t2 = create_process(testing_process2);
+	draw_string("Hola4 \n");
+	// lo agregamos al scheduler
+	add_process(scheduler, t1);
+	add_process(scheduler, t2);
+	draw_string("Hola \n");
 	/*ncPrint("Initial address of memory");
 	ncPrintHex((uint64_t)&memory_location);*/
 	//clear_screen();
@@ -98,16 +89,6 @@ void * initializeKernelBinary(){
 
 int main()
 {
-	// inicializamos el scheduler
-	init_scheduler(scheduler);
-	// creamos el proceso testing 1
-	process_t t1 = create_process(testing_process1);
-	// creamos el proceso testing 2
-	process_t t2 = create_process(testing_process2);
-	// lo agregamos al scheduler
-	add_process(scheduler, t1);
-	add_process(scheduler, t2);
-	to_userland();
 	return 0;
 }
 
@@ -120,28 +101,5 @@ void testing_process2(){
 	while(1){
 		draw_string("Soy el proceso 2 \n");
 	}
-}
-
-void initial_info(){
-
-	ncPrint("[Kernel Main]");
-	ncNewline();
-	ncPrint("  Sample code module at 0x");
-	ncPrintHex((uint64_t)sampleCodeModuleAddress);
-	ncNewline();
-	ncPrint("  Calling the sample code module returned: ");
-	ncPrintHex(((EntryPoint)sampleCodeModuleAddress)());
-	ncNewline();
-	ncNewline();
-
-	ncPrint("  Sample data module at 0x");
-	ncPrintHex((uint64_t)sampleDataModuleAddress);
-	ncNewline();
-	ncPrint("  Sample data module contents: ");
-	ncPrint((char*)sampleDataModuleAddress);
-	ncNewline();
-
-	ncPrint("[Finished]");
-	ncClear();
 }
 
