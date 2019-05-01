@@ -28,4 +28,7 @@ void pic_slave_mask(uint8_t mask);
 //Termina la ejecución de la cpu.
 void haltcpu(void);
 
+void _change_process(uint64_t stack_pointer);
+void _context_switch(void);
+
 #endif /* INTERRUPS_H_ */

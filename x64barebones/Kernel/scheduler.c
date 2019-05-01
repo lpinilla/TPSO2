@@ -1,18 +1,21 @@
 #include <scheduler.h>
+#include <graphics.h>
 
-typedef struct schedulerADT{
-    list_t p_ready;
-    list_t p_waiting;
-    list_t p_terminate;
-} schedulerADT;
+static scheduler_t scheduler;
 
 void init_scheduler(){
+    scheduler = mem_alloc(sizeof(schedulerADT));
     scheduler->p_ready= newList();
     scheduler->p_waiting = newList();
     scheduler->p_terminate = newList();
 }
 
-void add_process(scheduler_t scheduler, process_t process){
+void run_process(process_t process){
+    //Esta funcion es para correr el primer proceso nomas, porque si usamos directamente _context_switch estaria mal
+    _change_process(process->stack_pointer);
+}
+
+void add_process(process_t process){
     pstate_t state = get_state(process);
     switch(state){
         case P_READY:
@@ -29,7 +32,7 @@ void add_process(scheduler_t scheduler, process_t process){
     }
 }
 
-void * switch_process(void * stack_pointer){
+uint64_t switch_process(uint64_t stack_pointer){
     process_t actual = getFirstElementReferece(scheduler->p_ready);
     set_stack_pointer(actual, stack_pointer);
     removeFirst(scheduler->p_ready);

@@ -11,7 +11,10 @@ GLOBAL _exception0_handler
 GLOBAL _exception6_handler
 GLOBAL _exception13_handler
 GLOBAL _syscall_handler
+GLOBAL _context_switch
+GLOBAL _change_process
 
+EXTERN switch_process
 EXTERN irq_dispatcher
 EXTERN exception_dispatcher
 EXTERN syscall_dispacher
@@ -35,6 +38,46 @@ EXTERN syscall_dispacher
 %endmacro
 
 %macro pop_all 0
+	pop r15
+	pop r14
+	pop r13
+	pop r12
+	pop r11
+	pop r10
+	pop r9
+	pop r8
+	pop rsi
+	pop rdi
+	pop rbp
+	pop rdx
+	pop rcx
+	pop rbx
+	pop rax
+%endmacro
+
+%macro push_state 0
+	push rax
+	push rbx
+	push rcx
+	push rdx
+	push rbp
+	push rdi
+	push rsi
+	push r8
+	push r9
+	push r10
+	push r11
+	push r12
+	push r13
+	push r14
+	push r15
+	push fs
+	push gs
+%endmacro
+
+%macro pop_state 0
+	pop gs
+	pop fs
 	pop r15
 	pop r14
 	pop r13
@@ -126,4 +169,22 @@ _exception13_handler:
 
 _syscall_handler:
 	call syscall_dispacher
+	iretq
+
+haltcpu:
+	cli
+	hlt
+	ret
+
+_change_process:
+	mov rsp, rdi
+	pop_state
+	iretq
+
+_context_switch:
+	push_state
+	mov rdi, rsp
+	call switch_process
+	mov rsp, rax
+	pop_state
 	iretq

@@ -9,6 +9,7 @@
 #include <mem_manager.h>
 #include <process.h>
 #include <scheduler.h>
+#include <interrupts.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -58,40 +59,50 @@ void * initializeKernelBinary(){
 	};
 	loadModules(&endOfKernelBinary, moduleAddresses);
 	clearBSS(&bss, &endOfKernel - &bss);
+	load_idt();
 
 	initialize_list(memory_location, 1024*1024); //creo que le puse 1mb de memoria
 	init_graphics();
+
 	// inicializamos el scheduler
-	init_scheduler(scheduler);
-	load_idt();
-	// creamos el proceso testing 1
-	process_t t1 = create_process(testing_process1);
-	// creamos el proceso testing 2
-	process_t t2 = create_process(testing_process2);
-	draw_string("Hola4 \n");
-	// lo agregamos al scheduler
-	add_process(scheduler, t1);
-	add_process(scheduler, t2);
+	init_scheduler();
+
 	/*ncPrint("Initial address of memory");
 	ncPrintHex((uint64_t)&memory_location);*/
 	//clear_screen();
 	return getStackBase();
 }
 
-
-int main()
-{
-	return 0;
-}
-
 void testing_process1(){
 	while(1){
-		draw_string("Soy el proceso 1 \n");
+	draw_string("Process 1.\n");
 	}
 }
 void testing_process2(){
 	while(1){
-		draw_string("Soy el proceso 2 \n");
+		draw_string("Process 2.\n");
 	}
+}
+
+int main()
+{
+	draw_string("Before process.\n");
+	// creamos el proceso testing 1
+	process_t t1 = create_process((uint64_t)testing_process1);
+	// creamos el proceso testing 2
+	process_t t2 = create_process((uint64_t)testing_process2);
+	draw_string("Created process.\n");
+	// lo agregamos al scheduler
+	add_process(t1);
+	run_process(t1);
+	//Ahora se corta aca porque queda eternamente corriendo el proceso t1
+	add_process(t2);
+
+	//to_userland();
+	while(1){
+		_cli();
+		_hlt();
+	}
+	return 0;
 }
 
