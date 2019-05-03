@@ -92,6 +92,8 @@ void father_process(){
 	process_t c2 = create_process((uint64_t)child2_process, "Second Child Process");
 	run_process(c1);
 	run_process(c2);
+	print_current_processes();
+	//haltcpu();
 
 	while(1){
 		draw_string("FFFFFFFFFFFFFFFFFFFFFFFFF\n");

@@ -13,29 +13,33 @@ static void set_next_process();
 
 //LISTA DE NODOS CIRCULAR PARA LOS PROCESOS
 static node_t current_process;
+static node_t last_process;
 static size_t number_of_processes;
 
 void init_scheduler(){
     current_process = NULL;
+    last_process = NULL;
     number_of_processes = 0;
 }
 
 void run_process(process_t process){
     number_of_processes++;
-    if(current_process == NULL){
-        current_process = mem_alloc(sizeof(nodeADT));
-        current_process->element = process;
-        current_process->next = current_process;
-        current_process->prev = current_process;
+    if(last_process == NULL){
+        last_process = mem_alloc(sizeof(nodeADT));
+        last_process->element = process;
+        last_process->next = last_process;
+        last_process->prev = last_process;
+        current_process = last_process;
         _change_process(process->stack_pointer);
     }
     else{
         node_t aux = mem_alloc(sizeof(nodeADT));
         aux->element = process;
-        aux->next = current_process->next;
-        aux->prev = current_process;
-        current_process->next->prev = aux;
-        current_process->next = aux;
+        aux->next = last_process->next;
+        aux->prev = last_process;
+        last_process->next->prev = aux;
+        last_process->next = aux;
+        last_process = aux;
     }
 }
 
@@ -57,6 +61,7 @@ void kill_process(){
 
 static void set_next_process(){
     current_process = current_process->next;
+    
     if(current_process->element->state == P_TERMINATE){
         kill_process();
     }
@@ -83,10 +88,10 @@ uint64_t switch_process(uint64_t stack_pointer){
     }
 }
 
-char ** get_current_processes(){
-    char **result = mem_alloc(number_of_processes*sizeof(void *));
-    //Vector de strings con el formato "PID: pid PROCESS: process_name \n"
-    //Falta hacer
-
-    return result;
+void print_current_processes(){
+    node_t aux = current_process;
+    for(int i = 0; i < number_of_processes; i++){
+        print_process(aux->element);
+        aux = aux->next;
+    }
 }
