@@ -1,16 +1,16 @@
 #include <process.h>
 #include <graphics.h>
 
-static uint64_t init_stack(uint64_t process_start, uint64_t stack_pointer); 
+static uint64_t init_stack(void * process_start, void * stack_pointer); 
 
 static size_t global_pid = 0;
 
-process_t create_process(uint64_t process_start){
+process_t create_process(void * process_start){
 
-    process_t new_process = (process_t)mem_alloc(sizeof(*new_process));
+    process_t new_process = mem_alloc(sizeof(*new_process));
     new_process->pid = global_pid++;
     new_process->state = P_READY;
-	new_process->stack_pointer = (uint64_t)mem_alloc(STACK_SIZE);
+	new_process->stack_pointer = mem_alloc(STACK_SIZE);
     new_process->stack_pointer = init_stack(process_start, new_process->stack_pointer);
 
     return new_process;
@@ -33,7 +33,7 @@ void set_stack_pointer(process_t process, uint64_t stack_pointer){
     process->stack_pointer=stack_pointer;
 }
 
-static uint64_t init_stack(uint64_t process_start, uint64_t stack_pointer) {
+static uint64_t init_stack(void * process_start, void * stack_pointer) {
     stack_t * frame = (stack_t *)(stack_pointer + STACK_SIZE - sizeof(stack_t) -1 );
 
 	frame->gs = 0x001;
@@ -54,12 +54,12 @@ static uint64_t init_stack(uint64_t process_start, uint64_t stack_pointer) {
 	frame->rbx = 0x010;
 	frame->rax = 0x011;
 
-	frame->rip = process_start;
+	frame->rip = (uint64_t)process_start;
 	frame->cs =	0x008;
 	frame->eflags = 0x202;
 	frame->rsp = (uint64_t)&(frame->base);
 	frame->ss = 0x000;
 	frame->base = 0x000;
 
-	return (uint64_t)frame;
+	return (void *)frame;
 }

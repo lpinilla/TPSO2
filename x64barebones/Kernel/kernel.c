@@ -88,13 +88,13 @@ int main()
 {
 	draw_string("Before process.\n");
 	// creamos el proceso testing 1
-	process_t t1 = create_process((uint64_t)testing_process1);
+	process_t t1 = create_process(testing_process1);
 	// creamos el proceso testing 2
-	process_t t2 = create_process((uint64_t)testing_process2);
+	process_t t2 = create_process(testing_process2);
 	draw_string("Created process.\n");
 	// lo agregamos al scheduler
 	add_process(t1);
-	run_process(t1);
+	run_process(t2);
 	//Ahora se corta aca porque queda eternamente corriendo el proceso t1
 	add_process(t2);
 

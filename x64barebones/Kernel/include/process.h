@@ -46,7 +46,7 @@ typedef struct {
 	uint64_t base;
 }stack_t;
 
-process_t create_process(uint64_t process_start);
+process_t create_process(void * process_start);
 void delete_process(process_t process);
 void set_state(process_t process, pstate_t state);
 pstate_t get_state(process_t process);
