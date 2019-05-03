@@ -92,3 +92,9 @@ static uint64_t init_stack(void * process_start, void * stack_pointer) {
 
 	return (void *)frame;
 }
+
+void print_process(process_t process){
+	draw_number(process->pid);
+	draw_string(": ");
+	draw_string(process->name);
+}
