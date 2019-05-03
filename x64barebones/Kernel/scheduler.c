@@ -19,7 +19,7 @@ void add_process(process_t process){
     pstate_t state = get_state(process);
     switch(state){
         case P_READY:
-            addElement(scheduler->p_ready, process, sizeof(processADT));
+            addElement(scheduler->p_ready, process, sizeof(*process));
             break;
         case P_WAITING:
             addElement(scheduler->p_waiting, process, sizeof(*process));

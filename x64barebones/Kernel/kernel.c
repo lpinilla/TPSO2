@@ -88,9 +88,9 @@ int main()
 {
 	draw_string("Before process.\n");
 	// creamos el proceso testing 1
-	process_t t1 = create_process(testing_process1);
+	process_t t1 = create_process("proceso 1", testing_process1);
 	// creamos el proceso testing 2
-	process_t t2 = create_process(testing_process2);
+	process_t t2 = create_process("proceso 2", testing_process2);
 	draw_string("Created process.\n");
 	// lo agregamos al scheduler
 	add_process(t1);

@@ -5,12 +5,6 @@ static uint64_t init_stack(void * process_start, void * stack_pointer);
 
 static size_t global_pid = 0;
 
-typedef struct processADT {
-    size_t pid;
-    pstate_t state;
-    uint64_t stack_pointer;
-} processADT;
-
 typedef struct {
 	//Registers restore context
 	uint64_t gs;
@@ -40,9 +34,9 @@ typedef struct {
 	uint64_t base;
 }stack_t;
 
-process_t create_process(void * process_start){
-
+process_t create_process(char * name, void * process_start){
     process_t new_process = mem_alloc(sizeof(*new_process));
+	new_process->name = name;
     new_process->pid = global_pid++;
     new_process->state = P_READY;
 	new_process->stack_pointer = mem_alloc(STACK_SIZE);
