@@ -12,6 +12,7 @@ typedef struct nodeADT{
 static void set_next_process();
 
 //LISTA DE NODOS CIRCULAR PARA LOS PROCESOS
+//TODO PROCESO SE AGREGA AL FINAL, SIGUIENDO EL ALGORITMO ROUND ROBIN
 static node_t current_process;
 static node_t last_process;
 static size_t number_of_processes;
@@ -51,6 +52,10 @@ void kill_process(){
     current_process->prev->next = current_process->next;
     current_process->next->prev = current_process->prev;
 
+    if(last_process == aux){
+        last_process = aux->prev;
+    }
+
     set_next_process();
 
     delete_process(aux->element);
@@ -61,7 +66,7 @@ void kill_process(){
 
 static void set_next_process(){
     current_process = current_process->next;
-    
+
     if(current_process->element->state == P_TERMINATE){
         kill_process();
     }
