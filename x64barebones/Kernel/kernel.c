@@ -23,7 +23,7 @@ static void * const sampleCodeModuleAddress = (void*)0x400000;
 static void * const sampleDataModuleAddress = (void*)0x500000;
 static void * const memory_location = (void *) 0x700000;
 
-void testing_process1();
+void dummy_process();
 void testing_process2();
 
 typedef int (*EntryPoint)();
@@ -59,13 +59,13 @@ void * initializeKernelBinary(){
 	};
 	loadModules(&endOfKernelBinary, moduleAddresses);
 	clearBSS(&bss, &endOfKernel - &bss);
-	load_idt();
-
 	initialize_list(memory_location, 1024*1024); //creo que le puse 1mb de memoria
-	init_graphics();
-
 	// inicializamos el scheduler
 	init_scheduler();
+	process_t dummy = create_process("dummy", dummy_process);
+	add_process(dummy);
+	load_idt();
+	init_graphics();
 
 	/*ncPrint("Initial address of memory");
 	ncPrintHex((uint64_t)&memory_location);*/
@@ -73,9 +73,14 @@ void * initializeKernelBinary(){
 	return getStackBase();
 }
 
-void testing_process1(){
+
+// proceso dummy necesario para que el scheduler no este vacio,
+// lo metemos antes que ccargue la IDT
+void dummy_process(){
 	while(1){
-	draw_string("Process 1.\n");
+		// en realidad no tendria que hacer nada mas haltear el proce
+		// esto es para testear
+		draw_string("Process 1");
 	}
 }
 void testing_process2(){
@@ -87,13 +92,10 @@ void testing_process2(){
 int main()
 {
 	draw_string("Before process.\n");
-	// creamos el proceso testing 1
-	process_t t1 = create_process("proceso 1", testing_process1);
 	// creamos el proceso testing 2
 	process_t t2 = create_process("proceso 2", testing_process2);
 	draw_string("Created process.\n");
 	// lo agregamos al scheduler
-	add_process(t1);
 	//Ahora se corta aca porque queda eternamente corriendo el proceso t1
 	add_process(t2);
 	print_all_process();
