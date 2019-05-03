@@ -8,7 +8,6 @@ static unsigned long ticks = 0; //VER STATIC!
 
 void timer_handler() {
 	ticks++;
-	//_context_switch();
 }
 
 int ticks_elapsed() {

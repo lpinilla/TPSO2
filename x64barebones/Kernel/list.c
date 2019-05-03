@@ -261,13 +261,3 @@ void *getFirstElementReferece(list_t list) {
 void freeList(list_t list) {
 	free_mem(list);
 }
-
-void print_elements(list_t list, void (*print)(void *)){
-	node_t aux = list->head;
-	if(aux==NULL)
-		return;
-	while(aux!=NULL){
-		print(aux->element);
-		aux=aux->next;
-	}
-}

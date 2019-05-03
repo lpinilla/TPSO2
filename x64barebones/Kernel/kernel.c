@@ -23,7 +23,7 @@ static void * const sampleCodeModuleAddress = (void*)0x400000;
 static void * const sampleDataModuleAddress = (void*)0x500000;
 static void * const memory_location = (void *) 0x700000;
 
-void dummy_process();
+void testing_process1();
 void testing_process2();
 
 typedef int (*EntryPoint)();
@@ -48,63 +48,62 @@ void * getStackBase()
 void to_userland(){
 		//ACA ES DONDE SALTA A USERLAND, COMENTAR ESTA LINEA SI QUEREMOS PROBAR COSAS DE KERNEL
 		((EntryPoint)sampleCodeModuleAddress)();
-	}
+}
 
 void * initializeKernelBinary(){
-	char buffer[10];
-	(cpuVendor(buffer));
+	
 	void * moduleAddresses[] = {
 		sampleCodeModuleAddress,
 		sampleDataModuleAddress
 	};
+
 	loadModules(&endOfKernelBinary, moduleAddresses);
 	clearBSS(&bss, &endOfKernel - &bss);
-	initialize_list(memory_location, 1024*1024); //creo que le puse 1mb de memoria
-	// inicializamos el scheduler
-	init_scheduler();
-	process_t dummy = create_process("dummy", dummy_process);
-	add_process(dummy);
 	load_idt();
+
+	initialize_list(memory_location, 1024*1024); //creo que le puse 1mb de memoria
 	init_graphics();
 
-	/*ncPrint("Initial address of memory");
-	ncPrintHex((uint64_t)&memory_location);*/
-	//clear_screen();
+	// inicializamos el scheduler
+	init_scheduler();
+
 	return getStackBase();
 }
 
+void child1_process(){
+	for(int i=0; i<30; i++){
+		draw_string("1111111111111111111111111\n");
+	}
+	//Siempre vamos a tener que matar a cada proceso al final por nuestra cuenta,
+	// el scheduler nuestro no tiene manera de saber cuando un proceso termino, si no se lo indicamos
+	// ya sea haciendo kill_process() o haciendo set_state P_TERMINATE, cualquiera de los dos funciona
+	kill_process();
+}
 
-// proceso dummy necesario para que el scheduler no este vacio,
-// lo metemos antes que ccargue la IDT
-void dummy_process(){
+void child2_process(){
 	while(1){
-		// en realidad no tendria que hacer nada mas haltear el proce
-		// esto es para testear
-		draw_string("Process 1");
+		draw_string("2222222222222222222222222\n");
 	}
 }
-void testing_process2(){
+
+void father_process(){
+
+	process_t c1 = create_process((uint64_t)child1_process, "First Child Process");
+	process_t c2 = create_process((uint64_t)child2_process, "Second Child Process");
+	run_process(c1);
+	run_process(c2);
+
 	while(1){
-		draw_string("Process 2.\n");
+		draw_string("FFFFFFFFFFFFFFFFFFFFFFFFF\n");
 	}
 }
 
 int main()
 {
-	draw_string("Before process.\n");
-	// creamos el proceso testing 2
-	process_t t2 = create_process("proceso 2", testing_process2);
-	draw_string("Created process.\n");
-	// lo agregamos al scheduler
-	//Ahora se corta aca porque queda eternamente corriendo el proceso t1
-	add_process(t2);
-	print_all_process();
-
-	//to_userland();
-	while(1){
-		_cli();
-		_hlt();
-	}
+	//Por como esta armado el scheduler siempre vamos a tener un primer proceso que crea a los demas
+	process_t father = create_process((uint64_t)father_process, "Father Process");
+	run_process(father);
+	
 	return 0;
 }
 
