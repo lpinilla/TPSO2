@@ -3,7 +3,7 @@
 
 static uint64_t init_stack(void * process_start, void * stack_pointer); 
 
-static size_t global_pid = 0;
+static int global_pid = 0;
 
 typedef struct {
 	//Registers restore context
@@ -97,4 +97,5 @@ void print_process(process_t process){
 	draw_number(process->pid);
 	draw_string(": ");
 	draw_string(process->name);
+	draw_char('\n');
 }

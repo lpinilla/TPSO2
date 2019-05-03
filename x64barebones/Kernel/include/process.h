@@ -13,7 +13,7 @@ typedef struct processADT * process_t;
 
 typedef struct processADT {
 	char * name;
-    size_t pid;
+    int pid;
     pstate_t state;
     uint64_t stack_pointer;
 } processADT;
@@ -23,5 +23,6 @@ void delete_process(process_t process);
 void set_state(process_t process, pstate_t state);
 pstate_t get_state(process_t process);
 void set_stack_pointer(process_t process, uint64_t stack_pointer);
+void print_process(process_t process);
 
 #endif

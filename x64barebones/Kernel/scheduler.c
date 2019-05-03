@@ -41,25 +41,8 @@ uint64_t switch_process(uint64_t stack_pointer){
     return actual->stack_pointer;
 }
 
-/*
-
-static void printList(list_t list) {
-    for(int i = 0; i < size(list); i++) {
-        process_t aux;
-        getFirstElement(list, &aux);
-        removeAndFreeFirst(list);
-        addProcessToScheduler(aux);
-        printATask(aux);
-        newLine();
-    }
+void print_all_process() {
+    print_elements(scheduler->p_ready, print_process);
+    print_elements(scheduler->p_waiting, print_process);
+    print_elements(scheduler->p_terminate, print_process);
 }
-
-void printAllProcess() {
-    draw_string("N A M E             |  P I D   |     M O D E      |  S T A T E   | T I D \n", 74, 0x0F);
-    draw_string("-------------------------------------------------------------------------\n", 74, 0x0F);
-    printList(scheduler->p_ready);
-    printList(scheduler->p_waiting);
-    printList(scheduler->p_terminated);
-}
-
-*/

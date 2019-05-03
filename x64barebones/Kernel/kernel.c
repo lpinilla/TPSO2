@@ -94,9 +94,9 @@ int main()
 	draw_string("Created process.\n");
 	// lo agregamos al scheduler
 	add_process(t1);
-	run_process(t2);
 	//Ahora se corta aca porque queda eternamente corriendo el proceso t1
 	add_process(t2);
+	print_all_process();
 
 	//to_userland();
 	while(1){
