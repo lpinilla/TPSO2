@@ -34,7 +34,7 @@ void set_stack_pointer(process_t process, uint64_t stack_pointer){
 }
 
 static uint64_t init_stack(uint64_t process_start, uint64_t stack_pointer) {
-    stack_t * frame = (stack_t *)stack_pointer;
+    stack_t * frame = (stack_t *)(stack_pointer + STACK_SIZE - sizeof(stack_t) -1 );
 
 	frame->gs = 0x001;
 	frame->fs =	0x002;
