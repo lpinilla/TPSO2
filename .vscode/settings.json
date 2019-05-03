@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "doubly_linked_list.h": "c",
-        "testing_suite.h": "c",
-        "mem_manager.h": "c"
-    }
-}

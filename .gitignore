@@ -61,3 +61,8 @@ dkms.conf
 
 *.vmdk
 *.ipch
+
+.vscode
+
+.bash_history
+.gdb_history
