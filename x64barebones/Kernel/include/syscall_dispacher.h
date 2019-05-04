@@ -8,7 +8,8 @@
 #include <sound.h>
 #include <time.h>
 #include <stddef.h>
-
+#include <scheduler.h>
+#include <process.h>
 
 #define READ 3
 #define WRITE 4
@@ -30,6 +31,9 @@
 #define MY_MALLOC 20
 #define MY_FREE 21
 #define MEM_BASE 22
+#define NEW_PROCESS 23
+#define KILL_PROCESS 24
+#define LIST_PROCESSES 25
 
 //si pongo #include <mem_manager.h> se rompe
 void * mem_alloc(size_t size);
@@ -39,5 +43,6 @@ void * return_memory_base();
 int read(int param1, char * param2, int param3);
 void write(int param1, char * param2, int param3);
 void color_write(char * pointer, int size, int foreground_color, int background_color);
+size_t new_process(uint64_t process_start, char * process_name);
 
 #endif

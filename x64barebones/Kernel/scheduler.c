@@ -31,7 +31,7 @@ void run_process(process_t process){
         last_process->next = last_process;
         last_process->prev = last_process;
         current_process = last_process;
-        _change_process(process->stack_pointer);
+        _change_process(get_stack_pointer(process));
     }
     else{
         node_t aux = mem_alloc(sizeof(nodeADT));
@@ -61,20 +61,22 @@ void kill_process(){
     delete_process(aux->element);
     free_mem(aux);
 
-    _change_process(current_process->element->stack_pointer);
+    _change_process(get_stack_pointer(current_process->element));
 }
 
 static void set_next_process(){
     current_process = current_process->next;
 
-    if(current_process->element->state == P_TERMINATE){
+    pstate_t pstate = get_state(current_process->element);
+
+    if(pstate == P_TERMINATE){
         kill_process();
     }
-    else if(current_process->element->state == P_WAITING){
+    else if(pstate == P_WAITING){
         set_next_process();
     }
-    else if(current_process->element->state == P_READY){
-        current_process->element->state = P_RUNNING;
+    else if(pstate == P_READY){
+        set_state(current_process->element, P_RUNNING);
     }
 }
 
@@ -82,11 +84,11 @@ static void set_next_process(){
 // lo mas posible a un quantum como pide la consigna
 uint64_t switch_process(uint64_t stack_pointer){
     if(number_of_processes>1){
-        current_process->element->stack_pointer = stack_pointer;
+        set_stack_pointer(current_process->element, stack_pointer);
 
         set_next_process();
 
-        return current_process->element->stack_pointer;
+        return get_stack_pointer(current_process->element);
     }
     else {
         return stack_pointer;

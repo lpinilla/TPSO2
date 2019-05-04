@@ -58,6 +58,14 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
         break;
       case MEM_BASE:
         return (uint64_t) return_memory_base();
+      case NEW_PROCESS:
+        return new_process(rdi, (char *)rsi);
+      case KILL_PROCESS:
+        set_state_id((size_t)rdi, P_TERMINATE);
+        break;
+      case LIST_PROCESSES:
+        print_current_processes();
+        break;
   }
 	return 0;
 }
@@ -87,4 +95,10 @@ void write(int fd, char * pointer, int size) {
     draw_n_chars_color(pointer,size,ERR_FG_COLOR, OUT_BG_COLOR);
   else
     return;
+}
+
+size_t new_process(uint64_t process_start, char * process_name){
+  process_t new_process = create_process(process_start, process_name);
+  run_process(new_process);
+  return get_pid(new_process);
 }

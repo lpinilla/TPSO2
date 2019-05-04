@@ -1,5 +1,13 @@
 #include <process.h>
 
+typedef struct processADT {
+	char * name[MAX_PROCESS_NAME];
+    size_t pid;
+    pstate_t state;
+	uint64_t stack_start;
+    uint64_t stack_pointer;
+} processADT;
+
 typedef struct {
 	//Registers restore context
 	uint64_t gs;
@@ -32,15 +40,17 @@ typedef struct {
 static uint64_t init_stack(uint64_t process_start, uint64_t stack_pointer); 
 
 static size_t global_pid = 0;
+static process_t all_processes[MAX_PROCESSES];
 
 process_t create_process(uint64_t process_start, char * process_name){
 
     process_t new_process = (process_t)mem_alloc(sizeof(*new_process));
 	str_cpy(process_name, (char*)(new_process->name));
-    new_process->pid = global_pid++;
+    new_process->pid = global_pid;
     new_process->state = P_READY;
 	new_process->stack_start = (uint64_t)mem_alloc(STACK_SIZE);
     new_process->stack_pointer = init_stack(process_start, new_process->stack_start);
+	all_processes[global_pid++] = new_process;
 
     return new_process;
 }
@@ -60,6 +70,18 @@ pstate_t get_state(process_t process){
 
 void set_stack_pointer(process_t process, uint64_t stack_pointer){
     process->stack_pointer=stack_pointer;
+}
+
+void set_state_id(size_t pid, pstate_t state){
+	all_processes[pid]->state = state;
+}
+
+size_t get_pid(process_t process){
+	return process->pid;
+}
+
+uint64_t get_stack_pointer(process_t process){
+	return process->stack_pointer;
 }
 
 static uint64_t init_stack(uint64_t process_start, uint64_t stack_pointer) {
