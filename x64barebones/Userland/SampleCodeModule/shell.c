@@ -1,19 +1,17 @@
 #include "include/shell.h"
 
 
-static func execute_command[]={invalid_command,play_pong,show_time,shutdown,make_beep,make_div,ayuda,try_scan_f,try_print_f,try_invalid_function};
+static func execute_command[]={invalid_command,play_pong,show_time,shutdown,make_beep,make_div,ayuda,try_scan_f,try_print_f,try_invalid_function, try_processes, ps};
 
-const char * commands[] = {"pong", "time","shutdown","beep","div","ayuda","scan","print","invalid"};
+const char * commands[] = {"pong", "time","shutdown","beep","div","ayuda","scan","print","invalid", "processes_test", "ps"};
 
 static int command_handler(char * command);
 
 uint64_t * shell(void){
-	draw_welcome_screen();
+	//draw_welcome_screen();
 
 	//prueba de punteros
-	clear_console();
-	void * ptr = start_of_memory();
-	print_f("%s \n", ptr);
+	//clear_console();
 
 	int command_id=INVALID_COMMAND;
 	print_user();
@@ -87,6 +85,14 @@ void try_print_f(){
 	print_f("%s \n", s);
 }
 
+void try_processes(){
+	process_test();
+}
+
+void ps(){
+	sys_print_all_procceses();
+}
+
 void make_div(){
 	int n = 1;
 	int b = 0;
@@ -117,6 +123,7 @@ void ayuda(){
 	print_f("time - Devuelve la hora en formato GMT \n");
 	print_f("shutdown - Apaga el SO \n");
 	print_f("scan - prueba el comando de scan_f con el formato \"Hola %%d %%s\" e imprime el resultado  \n");
+	print_f("processes - prueba la creacion, borrado y listado de procesos");
 	print_f("print - prueba el comando de print_f con el formato \"%%s \\n \" \n\n\n");
 	return;
 }

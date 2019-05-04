@@ -59,9 +59,9 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
       case MEM_BASE:
         return (uint64_t) return_memory_base();
       case NEW_PROCESS:
-        return new_process(rdi, (char *)rsi);
+        return new_process(rsi, (char *)rdx);
       case KILL_PROCESS:
-        set_state_id((size_t)rdi, P_TERMINATE);
+        set_state_id((size_t)rsi, P_TERMINATE);
         break;
       case LIST_PROCESSES:
         print_current_processes();

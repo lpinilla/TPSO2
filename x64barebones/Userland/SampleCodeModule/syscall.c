@@ -20,6 +20,9 @@
 #define MY_MALLOC 20
 #define MY_FREE 21
 #define MEM_BASE 22
+#define NEW_PROCESS 23
+#define KILL_PROCESS 24
+#define LIST_PROCESSES 25
 
 void sys_write(char * string, int size){
   _call_int_80( (uint64_t) WRITE, 1, (uint64_t) string, (uint64_t)size, 0, 0);
@@ -86,4 +89,16 @@ void sys_my_free(void* ptr){
 
 void * sys_start_of_mem(){
 	return (void *) _call_int_80(MEM_BASE, 0, 0,0,0,0);
+}
+
+int sys_create_process(void * function, char * name){
+	return (int)_call_int_80(NEW_PROCESS, (uint64_t)function, (uint64_t) name, 0, 0, 0);
+}
+
+void sys_kill_process(int pid){
+	_call_int_80(KILL_PROCESS, (uint64_t)pid, 0, 0, 0, 0);
+}
+
+void sys_print_all_procceses(){
+	_call_int_80(LIST_PROCESSES, 0, 0, 0, 0, 0);
 }

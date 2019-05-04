@@ -125,7 +125,7 @@ void print_process(process_t process){
 		draw_string("P_READY");
 	}
 	else if(process->state == P_RUNNING){
-		draw_string("P_RRUNNING");
+		draw_string("P_RUNNING");
 	}
 	else if(process->state == P_WAITING){
 		draw_string("P_WAITING");

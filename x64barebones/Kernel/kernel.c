@@ -64,7 +64,7 @@ void * initializeKernelBinary(){
 void init(){
 	clear_screen();
 		//ACA ES DONDE SALTA A USERLAND, COMENTAR ESTA LINEA SI QUEREMOS PROBAR COSAS DE KERNEL
-	uint64_t start = (uint64_t)((EntryPoint)sampleCodeModuleAddress)();
+	uint64_t start = (uint64_t)((EntryPoint)sampleCodeModuleAddress);
 	process_t process = create_process(start, "system");
 	run_process(process);
 }

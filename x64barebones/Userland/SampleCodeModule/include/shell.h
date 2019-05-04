@@ -14,6 +14,7 @@ DEFINE Y DESPUES EN EL VECTOR DE STRINGS ENE EL NUMERO DEL DEFINE -1 (podriamos 
 #include <openlg.h>
 #include <time.h>
 #include <mem_manager.h>
+#include <processes_test.h>
 
 #define RETURN_ADRESS 0xDEADC0DE
 
@@ -28,7 +29,7 @@ DEFINE Y DESPUES EN EL VECTOR DE STRINGS ENE EL NUMERO DEL DEFINE -1 (podriamos 
 #define PRINT_F 8
 #define INVALID 9
 
-#define COMMANDS 9
+#define COMMANDS 11
 
 #define MAX_LENGTH 20
 
@@ -45,6 +46,8 @@ void make_div();
 void ayuda();
 void try_invalid_function();
 void try_print_f();
+void try_processes();
+void ps();
 uint64_t * shell();
 
 

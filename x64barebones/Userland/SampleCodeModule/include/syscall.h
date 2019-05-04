@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include "./call_int_80.h"
+#include "./utilities.h"
 
 void sys_write(char * string, int size);
 char sys_read(char * string, int size);
@@ -20,5 +21,8 @@ int sys_time(int selector);
 void * sys_my_malloc(int size);
 void sys_my_free(void* ptr);
 void * sys_start_of_mem();
+int sys_create_process(void * function, char * name);
+void sys_kill_process(int pid);
+void sys_print_all_procceses();
 
 #endif
