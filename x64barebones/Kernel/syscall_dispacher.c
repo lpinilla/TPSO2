@@ -66,6 +66,8 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
       case LIST_PROCESSES:
         print_current_processes();
         break;
+      case GET_STATE_PROCESS:
+        return (uint64_t)get_state_id((size_t)rsi);
   }
 	return 0;
 }

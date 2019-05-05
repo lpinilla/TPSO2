@@ -1,7 +1,6 @@
 #ifndef _SCHEDULER_H
 #define _SCHEDULER_H
 
-#include <list.h>
 #include <process.h>
 #include <interrupts.h>
 #include <graphics.h>

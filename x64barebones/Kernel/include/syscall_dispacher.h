@@ -34,6 +34,7 @@
 #define NEW_PROCESS 23
 #define KILL_PROCESS 24
 #define LIST_PROCESSES 25
+#define GET_STATE_PROCESS 26
 
 //si pongo #include <mem_manager.h> se rompe
 void * mem_alloc(size_t size);

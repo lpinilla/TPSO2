@@ -5,6 +5,8 @@
 #include "./call_int_80.h"
 #include "./utilities.h"
 
+typedef enum {P_READY, P_RUNNING, P_WAITING, P_TERMINATE} pstate_t;
+
 void sys_write(char * string, int size);
 char sys_read(char * string, int size);
 void sys_clear_console();
@@ -24,5 +26,6 @@ void * sys_start_of_mem();
 int sys_create_process(void * function, char * name);
 void sys_kill_process(int pid);
 void sys_print_all_procceses();
+pstate_t sys_get_process_state(int pid);
 
 #endif

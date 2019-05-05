@@ -37,7 +37,8 @@ typedef struct {
 	uint64_t base;
 }stack_t;
 
-static uint64_t init_stack(uint64_t process_start, uint64_t stack_pointer); 
+static uint64_t init_stack(process_t process, uint64_t process_start, uint64_t stack_pointer); 
+static void process_caller(process_t process, uint64_t process_start);
 
 static size_t global_pid = 0;
 static process_t all_processes[MAX_PROCESSES];
@@ -49,7 +50,7 @@ process_t create_process(uint64_t process_start, char * process_name){
     new_process->pid = global_pid;
     new_process->state = P_READY;
 	new_process->stack_start = (uint64_t)mem_alloc(STACK_SIZE);
-    new_process->stack_pointer = init_stack(process_start, new_process->stack_start);
+    new_process->stack_pointer = init_stack(new_process, process_start, new_process->stack_start);
 	all_processes[global_pid++] = new_process;
 
     return new_process;
@@ -84,7 +85,7 @@ uint64_t get_stack_pointer(process_t process){
 	return process->stack_pointer;
 }
 
-static uint64_t init_stack(uint64_t process_start, uint64_t stack_pointer) {
+static uint64_t init_stack(process_t process, uint64_t process_start, uint64_t stack_pointer) {
     stack_t * frame = (stack_t *)(stack_pointer + STACK_SIZE - sizeof(stack_t) - 1);
 
 	frame->gs = 0x000;
@@ -97,15 +98,15 @@ static uint64_t init_stack(uint64_t process_start, uint64_t stack_pointer) {
 	frame->r10 = 0x000;
 	frame->r9 =	0x000;
 	frame->r8 =	0x000;
-	frame->rsi = 0x000;
-	frame->rdi = 0x000;
+	frame->rsi = process_start;
+	frame->rdi = (uint64_t)process;
 	frame->rbp = 0x000;
 	frame->rdx = 0x000;
 	frame->rcx = 0x000;
 	frame->rbx = 0x000;
 	frame->rax = 0x000;
 
-	frame->rip = process_start;
+	frame->rip = (uint64_t)process_caller;
 	frame->cs =	0x008;
 	frame->eflags = 0x202;
 	frame->rsp = (uint64_t)&(frame->base);
@@ -134,4 +135,14 @@ void print_process(process_t process){
 		draw_string("P_TERMINATE");
 	}
 	new_line();
+}
+
+static void process_caller(process_t process, uint64_t process_start){
+	void (*process_call)(void) = (void (*)(void))process_start;
+	(*process_call)();
+	kill_process();
+}
+
+pstate_t get_state_id(size_t pid){
+	return all_processes[pid]->state;
 }

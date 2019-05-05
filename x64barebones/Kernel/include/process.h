@@ -26,5 +26,6 @@ void kill_process();
 void print_process(process_t process);
 size_t get_pid(process_t process);
 uint64_t get_stack_pointer(process_t process);
+pstate_t get_state_id(size_t pid);
 
 #endif
