@@ -6,8 +6,8 @@ ASMFLAGS = -f elf64
 CFLAGS = -Wall -g -std=gnu99
 
 #------------------
-TARGETS = mem_manager_test userland_mem_man_test
-SOURCES = ../Tasteful/testing_suite ../x64barebones/Kernel/mem_manager ../x64barebones/Userland/SampleCodeModule/mem_manager ../x64barebones/Userland/SampleCodeModule/syscall
+TARGETS = mem_manager_test ipc_test lib_test
+SOURCES = ../Tasteful/testing_suite ../x64barebones/Kernel/mem_manager ../x64barebones/Userland/SampleCodeModule/mem_manager ../x64barebones/Userland/SampleCodeModule/syscall ../x64barebones/Kernel/ipc ../x64barebones/Kernel/lib
 ASM_FILES = ../x64barebones/Userland/SampleCodeModule/asm/call_int_80
 
 

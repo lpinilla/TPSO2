@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stddef.h>
 
 void * memset(void * destination, int32_t c, uint64_t length)
 {
@@ -49,6 +50,7 @@ void * memcpy(void * destination, const void * source, uint64_t length)
 	return destination;
 }
 
+<<<<<<< Updated upstream
 int str_cpy(const char* from, char* destination){
   int i = 0;
 	for (i = 0; from[i] != 0; ++i)
@@ -56,3 +58,24 @@ int str_cpy(const char* from, char* destination){
 	destination[i] = 0;
 	return i;
 }
+=======
+int strlen2(char * msg){
+	if(msg == (char *) 0x0) return 0;
+	int aux = 1;
+	while(*msg){
+		aux++;
+		msg++;
+	}
+	return aux;
+}
+
+int strcmp2(char * s1, char * s2){
+	if((s1 == NULL && s2 != NULL) || 
+		(s1 != NULL && s2 == NULL)) return -1;
+	while(*s1 && (*s1 == *s2)){
+        s1++;
+        s2++;
+    }
+    return (const char *)s1 - (const char *)s2; //ver si funciona
+}
+>>>>>>> Stashed changes
