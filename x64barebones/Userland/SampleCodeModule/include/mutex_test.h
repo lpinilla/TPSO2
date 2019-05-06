@@ -1,10 +1,10 @@
-#ifndef PROCESSES_TEST 
-#define PROCESSES_TEST
+#ifndef MUTEX_TEST 
+#define MUTEX_TEST
 
 #include <stdint.h>
 #include "./syscall.h"
 #include "./utilities.h"
 
-void process_test();
+void mutex_test();
 
 #endif

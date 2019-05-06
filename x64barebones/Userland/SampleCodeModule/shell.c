@@ -1,9 +1,9 @@
 #include "include/shell.h"
 
 
-static func execute_command[]={invalid_command,play_pong,show_time,shutdown,make_beep,make_div,ayuda,try_scan_f,try_print_f,try_invalid_function, try_processes, ps};
+static func execute_command[]={invalid_command,play_pong,show_time,shutdown,make_beep,make_div,ayuda,try_scan_f,try_print_f,try_invalid_function, try_processes, ps, try_mutex};
 
-const char * commands[] = {"pong", "time","shutdown","beep","div","ayuda","scan","print","invalid", "processes_test", "ps"};
+const char * commands[] = {"pong", "time","shutdown","beep","div","ayuda","scan","print","invalid", "processes_test", "ps", "mutex_test"};
 
 static int command_handler(char * command);
 
@@ -84,6 +84,10 @@ void try_print_f(){
 
 void try_processes(){
 	process_test();
+}
+
+void try_mutex(){
+	mutex_test();
 }
 
 void ps(){

@@ -15,6 +15,7 @@ DEFINE Y DESPUES EN EL VECTOR DE STRINGS ENE EL NUMERO DEL DEFINE -1 (podriamos 
 #include <time.h>
 #include <mem_manager.h>
 #include <processes_test.h>
+#include <mutex_test.h>
 
 #define RETURN_ADRESS 0xDEADC0DE
 
@@ -29,7 +30,7 @@ DEFINE Y DESPUES EN EL VECTOR DE STRINGS ENE EL NUMERO DEL DEFINE -1 (podriamos 
 #define PRINT_F 8
 #define INVALID 9
 
-#define COMMANDS 11
+#define COMMANDS 12
 
 #define MAX_LENGTH 20
 
@@ -49,6 +50,7 @@ void try_invalid_function();
 void try_invalid_function_process();
 void try_print_f();
 void try_processes();
+void try_mutex();
 void ps();
 uint64_t * shell();
 
