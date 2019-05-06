@@ -18,6 +18,7 @@ int main(void){
 }
 
 void write_test(){
+    initialize_list((void *) 0x800000, 1024*1024 *100); //creo que le puse 100mb de memoria
     init_mailbox();
     Message message = NULL, written = NULL;
     message = malloc(sizeof(t_Message));
@@ -46,6 +47,7 @@ void write_test(){
 }
 
 void writer_reader_test(){
+    initialize_list((void *) 0x800000, 1024*1024 *100); //creo que le puse 100mb de memoria
     init_mailbox();
     char * msg = "hola mundo!";
     int pid = fork(), ret = 0;
@@ -54,7 +56,8 @@ void writer_reader_test(){
         exit(EXIT_FAILURE);
     }else if(pid == 0){
         sleep(5); //para que el padre escriba primero
-        char * read_msg = my_read(getpid());
+        char * read_msg = malloc(13 * sizeof(char));
+        my_read(getpid(), read_msg);
         ret = strcmp(msg, read_msg);
         exit(EXIT_SUCCESS);
     }

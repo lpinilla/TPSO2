@@ -14,8 +14,8 @@ ASM_FILES = ../x64barebones/Userland/SampleCodeModule/asm/call_int_80
 all: clean $(TARGETS)
 
 $(TARGETS):
-	$(NASM) $(ASMFLAGS) $(ASM_FILES:=.asm) -o $(ASM_FILES:=.o)
-	$(GCC) $(CFLAGS) $(SOURCES:=.c) $(ASM_FILES:=.o) $@.c -o $@.tasty -lrt
+	@$(NASM) $(ASMFLAGS) $(ASM_FILES:=.asm) -o $(ASM_FILES:=.o)
+	@$(GCC) $(CFLAGS) $(SOURCES:=.c) $(ASM_FILES:=.o) $@.c -o $@.tasty -lrt
 
 clean:
 	@rm -f $(TARGETS) $(TARGETS:=.o) $(TARGETS:=.tasty)
