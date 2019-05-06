@@ -27,28 +27,18 @@ void my_write(char * msg, int rpid, int spid){
     str_cpy(msg, mailbox[free_spot].msg); //copiamos el mensaje a la estructura
     //sem_post(sem) sumarle al semáforo para indicar que hay un mensaje disponible
     //writer_mutex_unlock
-    my_read(spid, NULL); //podemos hacer que si no llega el mensaje, se reenvíe.
 }
 
 void my_read(int rpid, char * ret){
     int found = 0;
-    found++; //para que compile
+    found++; //para que compile -> BORRAR
     //sem_wait(sem);    //esperar al semáforo a qué haya algo para leer
     lock_mutex();   //ganar el recurso
     for(int i = 0; i < MAX_MESSAGES; i++){
+        //ver si el mensaje es para un pid que esta vivo
         if(mailbox[i].rpid == rpid){
-            if(!strcmp2(mailbox[i].msg, "ACK")){ //retornarle al write
-                found = 1;
-                mailbox[i].seen = 1;
-                break;
-            }
-            //cambiamos el mensaje para enviar un ACK al escritor
-            int aux = mailbox[i].rpid;            
-            char * ack = "ACK";
-            mailbox[i].rpid = mailbox[i].spid;
-            mailbox[i].spid = aux;
             memcpy(ret, mailbox[i].msg, strlen2(mailbox[i].msg));
-            memcpy(mailbox[i].msg, ack, 4);
+            mailbox[i].seen = 1;
             break;
         }
     }
