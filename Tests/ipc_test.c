@@ -18,7 +18,8 @@ int main(void){
 }
 
 void write_test(){
-    initialize_list((void *) 0x800000, 1024*1024 *100); //creo que le puse 100mb de memoria
+    void * mailbox = malloc(1024*1024 *100);
+    initialize_list(mailbox, 1024*1024 *100); //creo que le puse 100mb de memoria
     init_mailbox();
     Message message = NULL, written = NULL;
     message = malloc(sizeof(t_Message));
@@ -26,13 +27,13 @@ void write_test(){
         perror("Malloc Error");
         exit(EXIT_FAILURE);
     }
-    
     void * start_of_mailbox = get_mailbox_address();
     int ret = 0;
     message->rpid = 1;
     message->spid = getpid();
     message->mid = 0;
-    message->msg = "Hola mundo!";
+    message->msg = malloc(strlen("Hola mundo!") * sizeof(char));
+    strcpy(message->msg, "Hola mundo!");
     message->seen = 0;
     my_write("Hola mundo!", 1, getpid());
     written = (Message) start_of_mailbox;
@@ -40,14 +41,16 @@ void write_test(){
     ret += message->spid - written->spid;
     ret += message->mid - written->mid;
     ret += message->seen - written->seen;
-    
     ret += strncmp(message->msg, written->msg, strlen(message->msg));
+    free(message->msg);
     free(message);
+    free(mailbox);
     assert_true(!ret);
 }
 
 void writer_reader_test(){
-    initialize_list((void *) 0x800000, 1024*1024 *100); //creo que le puse 100mb de memoria
+    void * mailbox = malloc(1024*1024 *100);
+    initialize_list(mailbox, 1024*1024 *100); //creo que le puse 100mb de memoria
     init_mailbox();
     char * msg = "hola mundo!";
     int pid = fork(), ret = 0;
@@ -62,6 +65,7 @@ void writer_reader_test(){
         exit(EXIT_SUCCESS);
     }
     my_write(msg, pid, getpid());
+    free(mailbox);
     assert_true(!ret);
 }
 
