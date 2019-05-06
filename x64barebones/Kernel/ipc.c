@@ -12,7 +12,7 @@ void my_write(char * msg, int rpid, int spid){
     int mid = 0;
     //creamos la estructura
     t_Message n_msg = {.rpid = rpid, .spid = spid, .mid = mid, .seen = 0};
-    if(n_msg.msg == NULL) n_msg.msg = mem_alloc(MAX_NAME_SIZE * sizeof(char));
+    if(n_msg.msg == NULL) n_msg.msg = mem_alloc(MAX_MESSAGE_SIZE * sizeof(char));
     memcpy(n_msg.msg, msg, strlen2(msg));
     //ver si puedo escribir un mensaje en la memoria (lock)
     //si semáforo = MAX_MESSAGES, bloquear

@@ -11,13 +11,9 @@ uint64_t * shell(void){
 	//draw_welcome_screen();
 
 	//prueba de punteros
-<<<<<<< Updated upstream
-	//clear_console();
-=======
 	clear_console();
 	/*void * ptr = start_of_memory();
 	print_f("%s \n", ptr);*/
->>>>>>> Stashed changes
 
 	int command_id=INVALID_COMMAND;
 	print_user();
