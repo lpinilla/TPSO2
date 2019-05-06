@@ -57,6 +57,7 @@ int str_cpy(const char* from, char* destination){
 	destination[i] = 0;
 	return i;
 }
+
 int strlen2(char * msg){
 	if(msg == (char *) 0x0) return 0;
 	int aux = 1;

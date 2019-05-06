@@ -15,4 +15,12 @@ t_Message mailbox[MAX_MESSAGE_SIZE];
 
 int mailbox_index; 
 
+void init_mailbox();
+
+void * get_mailbox_address();
+
+void my_write(char * msg, int rpid, int spid);
+
+void my_read(int rpid, char * ret);
+
 #endif

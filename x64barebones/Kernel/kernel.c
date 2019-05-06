@@ -52,7 +52,7 @@ void * initializeKernelBinary(){
 	clearBSS(&bss, &endOfKernel - &bss);
 	load_idt();
 
-	initialize_list(memory_location, 1024*1024 * 100); //creo que le puse 100mb de memoria
+	initialize_list(memory_location, 1024*1024 *100); //creo que le puse 100mb de memoria
 	*((char *) memory_location)='h';
 	*((char *) memory_location + 1)='o';
 	*((char *) memory_location + 2)='l';

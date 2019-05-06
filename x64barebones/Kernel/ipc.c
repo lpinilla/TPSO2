@@ -9,24 +9,29 @@ void init_mailbox(){
 }
 
 void my_write(char * msg, int rpid, int spid){
-    int mid = 0;
-    //creamos la estructura
-    t_Message n_msg = {.rpid = rpid, .spid = spid, .mid = mid, .seen = 0};
-    if(n_msg.msg == NULL) n_msg.msg = mem_alloc(MAX_MESSAGE_SIZE * sizeof(char));
-    memcpy(n_msg.msg, msg, strlen2(msg));
-    //ver si puedo escribir un mensaje en la memoria (lock)
-    //si semáforo = MAX_MESSAGES, bloquear
-    //escribir
-    mailbox[mailbox_index++] = n_msg;
-    //incrementar semáforo
+    int mid = 0, free_spot = 0;
+    //vemos si podemos escribir
+    //if semaforo == MAX_MESSAGES -> block;
+    //writer_mutex_lock //adquirimos el permiso de escribir
+    //encontrar el 1er espacio libre
+    for(int i = 0; i < MAX_MESSAGES; i++){
+        if((mailbox[i].spid == 0 && mailbox[i].rpid == 0) || mailbox[i].seen == 1){
+            free_spot = i;
+            break;
+        } 
+    }
+    mailbox[free_spot].mid = mid;
+    mailbox[free_spot].rpid = rpid;
+    mailbox[free_spot].spid = spid;
+    mailbox[free_spot].seen = 0;
+    if(mailbox[free_spot].msg == NULL){
+        mailbox[free_spot].msg = (char *)  mem_alloc(MAX_MESSAGE_SIZE * sizeof(char));
+    }
+    str_cpy(msg, mailbox[free_spot].msg); //copiamos el mensaje a la estructura
+    //sem_post(sem) sumarle al semáforo para indicar que hay un mensaje disponible
+    //writer_mutex_unlock
+    my_read(spid, NULL); //podemos hacer que si no llega el mensaje, se reenvíe.
 }
-
-void my_write2(char * msg, int rpid, int spid){
-    //mutex lock
-
-    //mutex unlock
-}
-
 
 void my_read(int rpid, char * ret){
     int found = 0;
