@@ -1,13 +1,13 @@
 #include <openlg.h>
 
-char * title[9] = {"      ##      ##                           ",
-                   "      ##      ##                TP DE ARQUI",
-                   "    ##############                         ",
-                   "  ####  ######  ####                       ",
-                   "######################                     ",
-                   "##  ##############  ##                     ",
-                   "##  ##          ##  ##                     ",
-                   "      ####  ####                           "};
+char * title[9] = {"       ##      ##                           ",
+                   "       ##      ##                   TP DE SO",
+                   "     ##############                         ",
+                   "   ####  ######  ####                       ",
+                   " ######################                     ",
+                   " ##  ##############  ##                     ",
+                   " ##  ##          ##  ##                     ",
+                   "       ####  ####                           "};
 
 
 void draw_welcome_screen(){
@@ -17,7 +17,7 @@ void draw_welcome_screen(){
     print_f(title[i]);
     sys_new_line();
   }
-  print_f("Escriba ayuda para ver los comandos disponibles \n");
+  print_f("Escriba 'ayuda' para ver los comandos disponibles \n");
     for(int i = 0; i < 36; i++){
         sys_new_line();
     }

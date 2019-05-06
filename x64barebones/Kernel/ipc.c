@@ -1,7 +1,4 @@
-#include "./include/ipc.h"
-#include "./include/mem_manager.h"
-#include "./include/lib.h"
-#include <stdio.h>
+#include <ipc.h>
 
 void init_mailbox(){
     mailbox_index = 0;
@@ -37,7 +34,7 @@ void my_read(int rpid, char * ret){
     int found = 0;
     found++; //para que compile
     //sem_wait(sem);    //esperar al semáforo a qué haya algo para leer
-    //read_mutex_lock   //ganar el recurso
+    lock_mutex();   //ganar el recurso
     for(int i = 0; i < MAX_MESSAGES; i++){
         if(mailbox[i].rpid == rpid){
             if(!strcmp2(mailbox[i].msg, "ACK")){ //retornarle al write
@@ -56,7 +53,7 @@ void my_read(int rpid, char * ret){
         }
     }
     //if(!found) sem_post(sem); //decrementar el semáforo número si se leyó
-    //read_mutex_unlock;    //liberar el recurso para otros read
+    unlock_mutex();    //liberar el recurso
 }
 
 void * get_mailbox_address(){

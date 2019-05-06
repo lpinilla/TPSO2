@@ -9,10 +9,10 @@
 
 #define STACK_SIZE 4096
 
-#define MAX_PROCESS_NAME 257
+#define MAX_PROCESS_NAME 256
 #define MAX_PROCESSES 100
 
-typedef enum {P_READY, P_RUNNING, P_WAITING, P_TERMINATE} pstate_t;
+typedef enum {P_READY, P_RUNNING, P_CRITICAL, P_WAITING, P_TERMINATE} pstate_t;
 
 typedef struct processADT * process_t;
 

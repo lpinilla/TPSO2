@@ -1,5 +1,8 @@
 #include "include/processes_test.h"
 
+void child1_process();
+void child2_process();
+
 void child1_process(){
     while(1){
 

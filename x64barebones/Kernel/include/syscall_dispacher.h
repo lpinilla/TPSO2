@@ -10,6 +10,8 @@
 #include <stddef.h>
 #include <scheduler.h>
 #include <process.h>
+#include <mutex.h>
+#include <semaphore.h>
 
 #define READ 3
 #define WRITE 4
@@ -35,6 +37,12 @@
 #define KILL_PROCESS 24
 #define LIST_PROCESSES 25
 #define GET_STATE_PROCESS 26
+#define SEM_OPEN 27
+#define SEM_CLOSE 28
+#define SEM_POST 29
+#define SEM_WAIT 30
+#define MUTEX_LOCK 31
+#define MUTEX_UNLOCK 32
 
 //si pongo #include <mem_manager.h> se rompe
 void * mem_alloc(size_t size);

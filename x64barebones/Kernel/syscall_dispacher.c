@@ -68,6 +68,20 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
         break;
       case GET_STATE_PROCESS:
         return (uint64_t)get_state_id((size_t)rsi);
+      case SEM_OPEN:
+        return (uint64_t)my_sem_open((char *)rsi);
+      case SEM_CLOSE:
+        return (uint64_t)my_sem_close((int)rsi);
+      case SEM_POST:
+        return (uint64_t)my_sem_post((int)rsi);
+      case SEM_WAIT:
+        return (uint64_t)my_sem_wait((int)rsi);
+      case MUTEX_LOCK:
+        lock_mutex();
+        break;
+      case MUTEX_UNLOCK:
+        unlock_mutex();
+        break;
   }
 	return 0;
 }

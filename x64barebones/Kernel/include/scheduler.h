@@ -10,6 +10,7 @@ void run_process(process_t process);
 void kill_process();
 uint64_t switch_process(uint64_t stack_pointer);
 void print_current_processes();
+process_t get_current_process();
 
 #endif
 
