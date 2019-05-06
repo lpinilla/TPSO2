@@ -77,8 +77,9 @@ int my_sem_post(int sid){
             semaphore->first_waiting_process = NULL;
             semaphore->last_waiting_process = NULL;
         }
+        uint64_t stack = get_stack_pointer(aux->element);
         free_mem(aux);
-
+        _change_process(stack);
     }
     semaphore->value++;
     return semaphore->value;
@@ -103,6 +104,7 @@ int my_sem_wait(int sid){
 
         set_state(semaphore->last_waiting_process->element, P_WAITING);
         _context_switch();
+        draw_string("Llega\n");
     }
     semaphore->value--;
     return semaphore->value;
