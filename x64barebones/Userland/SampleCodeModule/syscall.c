@@ -24,6 +24,12 @@
 #define KILL_PROCESS 24
 #define LIST_PROCESSES 25
 #define GET_STATE_PROCESS 26
+#define SEM_OPEN 27
+#define SEM_CLOSE 28
+#define SEM_POST 29
+#define SEM_WAIT 30
+#define MUTEX_LOCK 31
+#define MUTEX_UNLOCK 32
 
 void sys_write(char * string, int size){
   _call_int_80( (uint64_t) WRITE, 1, (uint64_t) string, (uint64_t)size, 0, 0);
@@ -106,4 +112,28 @@ void sys_print_all_procceses(){
 
 pstate_t sys_get_process_state(int pid){
 	return (pstate_t)_call_int_80(GET_STATE_PROCESS, (uint64_t)pid, 0, 0, 0, 0);
+}
+
+int sys_sem_open(char * name){
+	return (int)_call_int_80(SEM_OPEN, (uint64_t)name, 0, 0, 0, 0);
+}
+
+int sys_sem_close(int id){
+	return (int)_call_int_80(SEM_CLOSE, (uint64_t)id, 0, 0, 0, 0);
+}
+
+int sys_sem_post(int id){
+	return (int)_call_int_80(SEM_POST, (uint64_t)id, 0, 0, 0, 0);
+}
+
+int sys_sem_wait(int id){
+	return (int)_call_int_80(SEM_WAIT, (uint64_t)id, 0, 0, 0, 0);
+}
+
+void sys_lock(){
+	_call_int_80(MUTEX_LOCK, 0, 0, 0, 0, 0);
+}
+
+void sys_unlock(){
+	_call_int_80(MUTEX_UNLOCK, 0, 0, 0, 0, 0);
 }

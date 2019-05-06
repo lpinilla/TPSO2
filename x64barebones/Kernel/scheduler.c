@@ -31,6 +31,7 @@ void run_process(process_t process){
         last_process->next = last_process;
         last_process->prev = last_process;
         current_process = last_process;
+        set_state(current_process->element, P_RUNNING);
         _change_process(get_stack_pointer(process));
     }
     else{
@@ -84,6 +85,9 @@ static void set_next_process(){
 // lo mas posible a un quantum como pide la consigna
 uint64_t switch_process(uint64_t stack_pointer){
     if(number_of_processes>1){
+        if(get_state(current_process->element) == P_CRITICAL){
+            return stack_pointer;
+        }
         set_stack_pointer(current_process->element, stack_pointer);
 
         set_next_process();
@@ -101,4 +105,8 @@ void print_current_processes(){
         print_process(aux->element);
         aux = aux->next;
     }
+}
+
+process_t get_current_process(){
+    return current_process->element;
 }

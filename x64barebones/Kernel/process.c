@@ -131,6 +131,9 @@ void print_process(process_t process){
 	else if(process->state == P_WAITING){
 		draw_string("P_WAITING");
 	}
+	else if(process->state == P_CRITICAL){
+		draw_string("P_CRITICAL");
+	}
 	else{
 		draw_string("P_TERMINATE");
 	}

@@ -8,12 +8,7 @@ const char * commands[] = {"pong", "time","shutdown","beep","div","ayuda","scan"
 static int command_handler(char * command);
 
 uint64_t * shell(void){
-	//draw_welcome_screen();
-
-	//prueba de punteros
-	clear_console();
-	/*void * ptr = start_of_memory();
-	print_f("%s \n", ptr);*/
+	draw_welcome_screen();
 
 	int command_id=INVALID_COMMAND;
 	print_user();
@@ -75,7 +70,7 @@ void show_time(){
 	print_time();
 }
 void print_user(){
-	print_f("ARQ@ITBA:");
+	print_f("SO@ITBA:");
 }
 
 void make_beep(){
@@ -96,6 +91,11 @@ void ps(){
 }
 
 void make_div(){
+	sys_create_process(make_div_process, "Div Exception");
+	sys_beep();
+}
+
+void make_div_process(){
 	int n = 1;
 	int b = 0;
 	int c = n/b;
@@ -110,6 +110,11 @@ void try_scan_f(){
 }
 
 void try_invalid_function(){
+	sys_create_process(try_invalid_function_process, "Invalid Code Exception");
+	sys_beep();
+}
+
+void try_invalid_function_process(){
 	uint64_t asd= 0xFFFFFFFFFFFF; //claramente una instruccion no valida
 	uint64_t * aux = &asd;
 	((func)aux)();
@@ -125,7 +130,9 @@ void ayuda(){
 	print_f("time - Devuelve la hora en formato GMT \n");
 	print_f("shutdown - Apaga el SO \n");
 	print_f("scan - prueba el comando de scan_f con el formato \"Hola %%d %%s\" e imprime el resultado  \n");
-	print_f("processes - prueba la creacion, borrado y listado de procesos");
+	print_f("processes_test - prueba la creacion, borrado y listado de procesos \n");
+	print_f("mutex_test - prueba la funcion mutex \n");
+	print_f("semaphore_test - prueba los semáforos \n");
 	print_f("print - prueba el comando de print_f con el formato \"%%s \\n \" \n\n\n");
 	return;
 }
