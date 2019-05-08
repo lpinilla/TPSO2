@@ -9,10 +9,8 @@ void sem_child3_process();
 void sem_child1_process(){
     sys_sem_wait(sem);
     print_f("Sem Consumed from First Child\n");
-    sys_beep();
     print_f("Sem Post from First Child\n");
     sys_sem_post(sem);
-    sys_beep();
     print_f("Sem Post from First Child\n");
     sys_sem_post(sem);
 }
@@ -35,8 +33,5 @@ void semaphore_test(){
     sys_create_process(sem_child3_process, "Third Child Process");
 
 	print_f("Current Processes: \n");
-    sys_print_all_procceses();
-    sys_beep();
-    print_f("\nCurrent Processes: \n");
     sys_print_all_procceses();
 }

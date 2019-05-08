@@ -6,6 +6,7 @@
 #include <scheduler.h>
 #include <mem_manager.h>
 #include <lib.h>
+#include <interrupts.h>
 
 #define MAX_SEMAPHORES 128
 #define MAX_SEMAPHORE_NAME 256

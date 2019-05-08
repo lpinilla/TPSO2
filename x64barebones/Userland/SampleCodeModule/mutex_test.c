@@ -44,10 +44,10 @@ void mutex_child2_process(){
 }*/
 
 void mutex_test(){
-    char ids[50];
-    for(int i = 0; i < 50; i++){
-        ids[i] = i + '0';
-    }
+    // char ids[50];
+    // for(int i = 0; i < 50; i++){
+    //     ids[i] = i + '0';
+    // }
     for(int i = 0; i < 10;i++){
         sys_create_process(variable_lock_test, "TEST");
     }
