@@ -21,7 +21,7 @@ static const uint64_t PageSize = 0x1000;
 
 static void * const sampleCodeModuleAddress = (void*)0x400000;
 static void * const sampleDataModuleAddress = (void*)0x500000;
-static void * const memory_location = (void *)0x800000;
+static void * const memory_location = (void *)0x700000;
 
 typedef int (*EntryPoint)();
 
@@ -52,7 +52,7 @@ void * initializeKernelBinary(){
 	clearBSS(&bss, &endOfKernel - &bss);
 	load_idt();
 
-	initialize_list(memory_location, 1024*1024 *200); //creo que le puse 100mb de memoria
+	initialize_list(memory_location, 1024*1024 *100); //creo que le puse 100mb de memoria
 
 	init_graphics();
 
