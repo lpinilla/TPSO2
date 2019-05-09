@@ -11,8 +11,9 @@ GLOBAL _exception0_handler
 GLOBAL _exception6_handler
 GLOBAL _exception13_handler
 GLOBAL _syscall_handler
-GLOBAL _context_switch
 GLOBAL _change_process
+GLOBAL _context_switch_process
+GLOBAL _context_switch_interrupt
 
 EXTERN switch_process
 EXTERN irq_dispatcher
@@ -149,7 +150,11 @@ _change_process:
 	pop_state
 	iretq
 
-_context_switch:
+_context_switch_process:
+	int 70h
+	ret
+
+_context_switch_interrupt:
 	push_state
 	mov rdi, rsp
 	call switch_process

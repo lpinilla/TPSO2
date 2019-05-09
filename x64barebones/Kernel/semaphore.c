@@ -101,7 +101,7 @@ int my_sem_wait(int sid){
         }
         semaphore->last_waiting_process = aux;
         set_state(semaphore->last_waiting_process->element, P_WAITING);
-        _context_switch();
+        _context_switch_process();
     }
     semaphore->value--;
     return semaphore->value;

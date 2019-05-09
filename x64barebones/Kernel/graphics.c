@@ -154,6 +154,9 @@ void draw_err_string(char * string){
 }
 
 void new_line(){
+  if(!is_current_process_foreground()){
+    return;
+  }
   if(y_cursor != (get_y_res()-CHAR_HEIGHT)){ //tal vez esto es lo que escribe abajo de la pantalla
     y_cursor += CHAR_HEIGHT;
   }else{

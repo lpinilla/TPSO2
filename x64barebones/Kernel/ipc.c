@@ -9,7 +9,7 @@ void my_write(char * msg, int rpid, int spid){
     int mid = 0, free_spot = 0;
     //vemos si podemos escribir
     //if semaforo == MAX_MESSAGES -> block;
-    //writer_mutex_lock //adquirimos el permiso de escribir
+    lock_mutex();   //ganar el recurso
     //encontrar el 1er espacio libre
     for(int i = 0; i < MAX_MESSAGES; i++){
         if((mailbox[i].spid == 0 && mailbox[i].rpid == 0) || mailbox[i].seen == 1){
@@ -26,7 +26,7 @@ void my_write(char * msg, int rpid, int spid){
     }
     str_cpy(msg, mailbox[free_spot].msg); //copiamos el mensaje a la estructura
     //sem_post(sem) sumarle al semáforo para indicar que hay un mensaje disponible
-    //writer_mutex_unlock
+    unlock_mutex();    //liberar el recurso
 }
 
 void my_read(int rpid, char * ret){

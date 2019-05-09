@@ -29,6 +29,7 @@ void pic_slave_mask(uint8_t mask);
 void haltcpu(void);
 
 void _change_process(uint64_t stack_pointer);
-void _context_switch(void);
+void _context_switch_process(void);
+void _context_switch_interrupt(void);
 
 #endif /* INTERRUPS_H_ */
