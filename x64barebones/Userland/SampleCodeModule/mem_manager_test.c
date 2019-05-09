@@ -3,6 +3,7 @@
 void mem_manager_test(){
     sys_print_mem_list();
     for(int i = 0; i<2; i++){
+        for(int j = 0; j < 1000000; j++);
         void * alloc1 = sys_my_malloc(100);
         if(alloc1 == NULL){
             print_f("1:Error\n");

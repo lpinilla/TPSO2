@@ -66,12 +66,10 @@ void * mem_alloc(size_t size){
 
 
 void free_mem(void * ptr){
-    //lock
     root = free_node(root, ptr);
     if(root == NULL){
         //ncPrint("Error liberando, mal puntero indicado");
     }
-    //unlock
 }
 
 
@@ -109,7 +107,7 @@ Node free_node(Node curr, void * mem_ptr){
     return curr;
 }
 
-void print_list(){
+/*void print_list(){
     print_r_list(root);
 }
 
@@ -123,4 +121,4 @@ void print_r_list(Node curr){
     draw_number(curr->size);
     draw_string("\n");
     print_r_list(curr->next);
-}
+}*/

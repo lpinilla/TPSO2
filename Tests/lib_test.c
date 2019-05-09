@@ -31,40 +31,40 @@ int main(void){
 
 void strlen_test1(){
     char * s = "hola";
-    assert_true(strlen2(s) == 5);
+    assert_true(str_len(s) == 5);
 }
 
 void strlen_test2(){
     char * s = "";
-    assert_true(strlen2(s) == 1);
+    assert_true(str_len(s) == 1);
 }
 
 void strlen_test3(){
     char * s = NULL;
-    assert_true(strlen2(s) == 0);
+    assert_true(str_len(s) == 0);
 }
 
 void strcmp_test1(){
     char * s = "hola", * s2 = "hola";
-    assert_true(strcmp2(s,s2) == 0);
+    assert_true(str_cmp(s,s2) == 0);
 }
 
 void strcmp_test2(){
     char * s = "hola", * s2 = "";
-    assert_true(strcmp2(s,s2) != 0);
+    assert_true(str_cmp(s,s2) != 0);
 }
 
 void strcmp_test3(){
     char * s = "hola", * s2 = NULL;
-    assert_true(strcmp2(s,s2) != 0);
+    assert_true(str_cmp(s,s2) != 0);
 }
 
 void strcmp_test4(){
     char * s = "hola", * s2 = "holas";
-    assert_true(strcmp2(s,s2) != 0);
+    assert_true(str_cmp(s,s2) != 0);
 }
 
 void strcmp_test5(){
     char * s = "hola", * s2 = "asdasd";
-    assert_true(strcmp2(s,s2) != 0);
+    assert_true(str_cmp(s,s2) != 0);
 }

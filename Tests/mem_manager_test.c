@@ -1,5 +1,6 @@
 #include "../Tasteful/testing_suite.h"
 #include "../x64barebones/Kernel/include/mem_manager.h"
+#include "../x64barebones/Kernel/include/graphics.h"
 
 //ver si se inicializa bien la lista
 void initialize_test();
@@ -118,4 +119,24 @@ void multiple_alloc_with_free(){
     ret = last != NULL;
     free(mem);
     assert_true(ret);
+}
+
+void multiple_malloc_free_test(){
+    size_t total_size = 100 * 1024;
+    void * mem = malloc(total_size * total_size);
+    void * ptr[] = {NULL, NULL, NULL};
+    if(mem == NULL) exit(EXIT_FAILURE);
+    initialize_list(mem, total_size * total_size);
+    for(int i = 0; i < 4; i++){
+        ptr[0] = mem_alloc(100);
+        if(ptr[0] == NULL) exit(EXIT_FAILURE);
+        ptr[1] = mem_alloc(200);
+        if(ptr[1] == NULL) exit(EXIT_FAILURE);
+        ptr[2] = mem_alloc(300);
+        if(ptr[2] == NULL) exit(EXIT_FAILURE);
+        for(int j = 0; j < 3; j++){
+            free(ptr[j]);
+        }
+    }
+    assert_true(1);
 }

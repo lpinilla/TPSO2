@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include <graphics.h>
-#include <bitmap.h>
-#include <glyphs.h>
-#include <scheduler.h>
-#include <process.h>
+#include "./include/graphics.h"
+#include "./include/bitmap.h"
+#include "./include/glyphs.h"
+#include "./include/scheduler.h"
+#include "./include/process.h"
 
 //resolucion 1024*768
 
