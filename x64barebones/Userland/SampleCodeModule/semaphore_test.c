@@ -28,9 +28,9 @@ void sem_child3_process(){
 void semaphore_test(){
 
     sem = sys_sem_open("Sem Test");
-	sys_create_process(sem_child1_process, "First Child Process");
-	sys_create_process(sem_child2_process, "Second Child Process");
-    sys_create_process(sem_child3_process, "Third Child Process");
+	sys_create_process(sem_child1_process, "First Child Process", 1);
+	sys_create_process(sem_child2_process, "Second Child Process", 0);
+    sys_create_process(sem_child3_process, "Third Child Process", 0);
 
 	print_f("Current Processes: \n");
     sys_print_all_procceses();

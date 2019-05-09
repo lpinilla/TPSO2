@@ -70,6 +70,7 @@ void show_time(){
 	print_time();
 }
 void print_user(){
+	while(!sys_is_current_process_foreground()){ }
 	print_f("SO@ITBA:");
 }
 
@@ -99,7 +100,7 @@ void ps(){
 }
 
 void make_div(){
-	sys_create_process(make_div_process, "Div Exception");
+	sys_create_process(make_div_process, "Div Exception", 1);
 	sys_beep();
 }
 
@@ -118,7 +119,7 @@ void try_scan_f(){
 }
 
 void try_invalid_function(){
-	sys_create_process(try_invalid_function_process, "Invalid Code Exception");
+	sys_create_process(try_invalid_function_process, "Invalid Code Exception", 1);
 	sys_beep();
 }
 

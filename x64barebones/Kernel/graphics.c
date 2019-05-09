@@ -4,6 +4,8 @@
 #include <graphics.h>
 #include <bitmap.h>
 #include <glyphs.h>
+#include <scheduler.h>
+#include <process.h>
 
 //resolucion 1024*768
 
@@ -27,6 +29,9 @@ void reset_cursor(){
 
 //se puede especificar color de frente y de fondo
 void draw_char_w_front_and_back_color(int x, int y, char c, int foreground_color, int background_color){
+  if(!is_current_process_foreground()){
+    return;
+  }
   if(c=='\n')
     return new_line();
   if(c=='\b')

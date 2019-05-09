@@ -23,7 +23,7 @@ int sys_time(int selector);
 void * sys_my_malloc(int size);
 void sys_my_free(void* ptr);
 void * sys_start_of_mem();
-int sys_create_process(void * function, char * name);
+int sys_create_process(void * function, char * name, int foreground);
 void sys_kill_process(int pid);
 void sys_print_all_procceses();
 pstate_t sys_get_process_state(int pid);
@@ -33,5 +33,7 @@ int sys_sem_post(int id);
 int sys_sem_wait(int id);
 void sys_lock();
 void sys_unlock();
+void sys_set_foreground_process(int pid);
+int sys_is_current_process_foreground();
 
 #endif

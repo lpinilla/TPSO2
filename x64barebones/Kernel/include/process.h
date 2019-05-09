@@ -2,15 +2,13 @@
 #define _PROCESS_H
 
 #include <stdlib.h>
-#include <mem_manager.h>
 #include <stdint.h>
 #include <lib.h>
-#include <graphics.h>
 
 #define STACK_SIZE 4096
 
 #define MAX_PROCESS_NAME 256
-#define MAX_PROCESSES 100
+#define MAX_PROCESSES 128
 
 typedef enum {P_READY, P_RUNNING, P_CRITICAL, P_WAITING, P_TERMINATE} pstate_t;
 
@@ -27,5 +25,8 @@ void print_process(process_t process);
 size_t get_pid(process_t process);
 uint64_t get_stack_pointer(process_t process);
 pstate_t get_state_id(size_t pid);
+void set_foreground_process(size_t pid);
+int is_current_process_foreground();
+void set_current_process_terminate();
 
 #endif

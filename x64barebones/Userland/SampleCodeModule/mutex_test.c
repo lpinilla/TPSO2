@@ -49,7 +49,7 @@ void mutex_test(){
     //     ids[i] = i + '0';
     // }
     for(int i = 0; i < 10;i++){
-        sys_create_process(variable_lock_test, "TEST");
+        sys_create_process(variable_lock_test, "TEST", 0);
     }
     sys_print_all_procceses();
 }

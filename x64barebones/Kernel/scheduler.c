@@ -1,5 +1,7 @@
 #include <scheduler.h>
-
+#include <mem_manager.h>
+#include <graphics.h>
+#include <interrupts.h>
 
 typedef struct nodeADT *node_t;
 
@@ -108,5 +110,5 @@ void print_current_processes(){
 }
 
 process_t get_current_process(){
-    return current_process->element;
+    return (process_t)current_process->element;
 }

@@ -30,6 +30,8 @@
 #define SEM_WAIT 30
 #define MUTEX_LOCK 31
 #define MUTEX_UNLOCK 32
+#define SET_FOREGROUND_PROCESS 33
+#define IS_CURRENT_PROCESS_FOREGROUND 34
 
 void sys_write(char * string, int size){
   _call_int_80( (uint64_t) WRITE, 1, (uint64_t) string, (uint64_t)size, 0, 0);
@@ -98,8 +100,8 @@ void * sys_start_of_mem(){
 	return (void *) _call_int_80(MEM_BASE, 0, 0,0,0,0);
 }
 
-int sys_create_process(void * function, char * name){
-	return (int)_call_int_80(NEW_PROCESS, (uint64_t)function, (uint64_t) name, 0, 0, 0);
+int sys_create_process(void * function, char * name, int foreground){
+	return (int)_call_int_80(NEW_PROCESS, (uint64_t)function, (uint64_t) name, (uint64_t)foreground, 0, 0);
 }
 
 void sys_kill_process(int pid){
@@ -136,4 +138,12 @@ void sys_lock(){
 
 void sys_unlock(){
 	_call_int_80(MUTEX_UNLOCK, 0, 0, 0, 0, 0);
+}
+
+void sys_set_foreground_process(int pid){
+	_call_int_80(SET_FOREGROUND_PROCESS, (uint64_t)pid, 0, 0, 0, 0);
+}
+
+int sys_is_current_process_foreground(){
+	return (int)_call_int_80(IS_CURRENT_PROCESS_FOREGROUND, 0, 0, 0, 0, 0);
 }

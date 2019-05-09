@@ -59,7 +59,7 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
       case MEM_BASE:
         return (uint64_t) return_memory_base();
       case NEW_PROCESS:
-        return new_process(rsi, (char *)rdx);
+        return new_process(rsi, (char *)rdx, (int)rcx);
       case KILL_PROCESS:
         set_state_id((size_t)rsi, P_TERMINATE);
         break;
@@ -82,6 +82,11 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
       case MUTEX_UNLOCK:
         unlock_mutex();
         break;
+      case SET_FOREGROUND_PROCESS:
+        set_foreground_process((size_t)rsi);
+        break;
+      case IS_CURRENT_PROCESS_FOREGROUND:
+        return (uint64_t)is_current_process_foreground();
   }
 	return 0;
 }
@@ -113,8 +118,11 @@ void write(int fd, char * pointer, int size) {
     return;
 }
 
-size_t new_process(uint64_t process_start, char * process_name){
+size_t new_process(uint64_t process_start, char * process_name, int foreground){
   process_t new_process = create_process(process_start, process_name);
+  if(foreground == 1){
+    set_foreground_process(get_pid(new_process));
+  }
   run_process(new_process);
   return get_pid(new_process);
 }

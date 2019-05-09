@@ -1,8 +1,12 @@
 #include <process.h>
+#include <scheduler.h>
+#include <mem_manager.h>
+#include <graphics.h>
 
 typedef struct processADT {
 	char * name[MAX_PROCESS_NAME];
     size_t pid;
+	size_t ppid;
     pstate_t state;
 	uint64_t stack_start;
     uint64_t stack_pointer;
@@ -42,6 +46,7 @@ static void process_caller(process_t process, uint64_t process_start);
 
 static size_t global_pid = 0;
 static process_t all_processes[MAX_PROCESSES];
+static process_t foreground_process = NULL;
 
 process_t create_process(uint64_t process_start, char * process_name){
 
@@ -51,18 +56,44 @@ process_t create_process(uint64_t process_start, char * process_name){
     new_process->state = P_READY;
 	new_process->stack_start = (uint64_t)mem_alloc(STACK_SIZE);
     new_process->stack_pointer = init_stack(new_process, process_start, new_process->stack_start);
+	if(global_pid != 0){
+		new_process->ppid = get_current_process()->pid;
+	}
+	else{
+		foreground_process = new_process;
+		new_process->ppid = 0;
+	}
+
 	all_processes[global_pid++] = new_process;
 
     return new_process;
 }
 
+void set_foreground_process(size_t pid){
+	if(all_processes[pid] != NULL){
+		foreground_process = all_processes[pid];
+	}
+}
+
+int is_current_process_foreground(){
+	return foreground_process == get_current_process();
+}
+
 void delete_process(process_t process){
+	all_processes[process->pid] = NULL;
     free_mem((void *)process->stack_start);
     free_mem(process);
 }
 
 void set_state(process_t process, pstate_t state){
     process->state = state;
+	if(state == P_TERMINATE){
+		foreground_process = all_processes[process->ppid];
+	}
+}
+
+void set_current_process_terminate(){
+	set_state(get_current_process(), P_TERMINATE);
 }
 
 pstate_t get_state(process_t process){
@@ -137,12 +168,26 @@ void print_process(process_t process){
 	else{
 		draw_string("P_TERMINATE");
 	}
+	draw_string(" PPID: ");
+	draw_number(process->ppid);
+	draw_string(" STACK: ");
+	draw_number((int)process->stack_start);
+	if(foreground_process == process){
+		draw_string(" PROCESS IN: FOREGROUND");
+	}
+	else{
+		draw_string(" PROCESS IN: BACKGROUND");
+	}
+
 	new_line();
 }
 
 static void process_caller(process_t process, uint64_t process_start){
 	void (*process_call)(void) = (void (*)(void))process_start;
 	(*process_call)();
+	if(foreground_process == process){
+		set_foreground_process(process->ppid);
+	}
 	kill_process();
 }
 

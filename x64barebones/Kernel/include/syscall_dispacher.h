@@ -43,6 +43,8 @@
 #define SEM_WAIT 30
 #define MUTEX_LOCK 31
 #define MUTEX_UNLOCK 32
+#define SET_FOREGROUND_PROCESS 33
+#define IS_CURRENT_PROCESS_FOREGROUND 34
 
 //si pongo #include <mem_manager.h> se rompe
 void * mem_alloc(size_t size);
@@ -52,6 +54,6 @@ void * return_memory_base();
 int read(int param1, char * param2, int param3);
 void write(int param1, char * param2, int param3);
 void color_write(char * pointer, int size, int foreground_color, int background_color);
-size_t new_process(uint64_t process_start, char * process_name);
+size_t new_process(uint64_t process_start, char * process_name, int foreground);
 
 #endif

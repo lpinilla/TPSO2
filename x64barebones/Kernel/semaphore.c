@@ -1,4 +1,5 @@
 #include "include/semaphore.h"
+#include <graphics.h>
 
 typedef struct nodeADT *node_t;
 

@@ -2,8 +2,6 @@
 #define _SCHEDULER_H
 
 #include <process.h>
-#include <interrupts.h>
-#include <graphics.h>
 
 void init_scheduler();
 void run_process(process_t process);

@@ -1,10 +1,9 @@
 GLOBAL print_all_registers
 
 extern new_line
-extern kill_process
+extern set_current_process_terminate
 extern draw_err_string
 extern draw_err_number
-extern time_wait
 
 section .text
 
@@ -125,9 +124,7 @@ print_all_registers:
     call new_line
     pop_all
 
-		mov rdi, 100
-		call time_wait
-    call kill_process
+    call set_current_process_terminate
 
 section .rodata
   register1 db "RAX= ", 0
