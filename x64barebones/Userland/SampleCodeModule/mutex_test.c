@@ -2,6 +2,7 @@
 
 static int value = 1;
 static int x = 0;
+int y = 0;
 
 void mutex_child1_process();
 void mutex_child2_process();
@@ -21,10 +22,11 @@ void mutex_child_action(){
 } 
 
 void variable_lock_test(){
+    for(int i = 0; i < 1000; i++){
     sys_lock();
     x++;
-    print_f("Value of x: %d \n", x);
     sys_unlock();
+    }
 }
 
 void mutex_child1_process(){
@@ -44,12 +46,8 @@ void mutex_child2_process(){
 }*/
 
 void mutex_test(){
-    // char ids[50];
-    // for(int i = 0; i < 50; i++){
-    //     ids[i] = i + '0';
-    // }
-    for(int i = 0; i < 10;i++){
-        sys_create_process(variable_lock_test, "TEST", 0);
-    }
+    sys_create_process(variable_lock_test, "TEST1",0);
+    sys_create_process(variable_lock_test, "TEST2",0);
     sys_print_all_procceses();
+    print_f("should be 2000: %d \n", x);
 }
