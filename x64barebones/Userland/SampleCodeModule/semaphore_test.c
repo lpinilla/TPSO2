@@ -55,4 +55,5 @@ void semaphore_test(){
     while(!sys_is_current_process_foreground()){}
 	print_f("Current Processes: \n");
     sys_print_all_procceses();
+    sys_sem_close(sem);
 }
