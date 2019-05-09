@@ -41,5 +41,10 @@ Node free_node(Node curr, void * mem_ptr);
 //devuelve un puntero al inicio de la memoria
 void * return_memory_base();
 
+
+void print_list();
+
+void print_r_list(Node curr);
+
 #endif
 

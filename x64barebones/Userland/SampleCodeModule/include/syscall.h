@@ -35,5 +35,6 @@ void sys_lock();
 void sys_unlock();
 void sys_set_foreground_process(int pid);
 int sys_is_current_process_foreground();
+void sys_print_mem_list();
 
 #endif

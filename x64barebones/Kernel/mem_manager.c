@@ -1,5 +1,6 @@
 //incluirlo manualmente para los tests
 #include "./include/mem_manager.h"
+#include "./include/graphics.h"
 
 void * start_dir;
 
@@ -101,4 +102,20 @@ Node free_node(Node curr, void * mem_ptr){
     }
     curr->next = free_node(curr->next, mem_ptr);
     return curr;
+}
+
+void print_list(){
+    print_r_list(root);
+}
+
+void print_r_list(Node curr){
+    if(curr == NULL) return;
+    draw_string("mem_ptr:");
+    draw_number((uint64_t) curr->mem_ptr);
+    draw_string(" status");
+    draw_number(curr->status);
+    draw_string(" size");
+    draw_number(curr->size);
+    draw_string("\n");
+    print_r_list(curr->next);
 }

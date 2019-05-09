@@ -87,6 +87,9 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
         break;
       case IS_CURRENT_PROCESS_FOREGROUND:
         return (uint64_t)is_current_process_foreground();
+      case PRINT_MEM_LIST:
+        print_list();  
+        break;
   }
 	return 0;
 }

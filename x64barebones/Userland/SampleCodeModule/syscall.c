@@ -32,6 +32,7 @@
 #define MUTEX_UNLOCK 32
 #define SET_FOREGROUND_PROCESS 33
 #define IS_CURRENT_PROCESS_FOREGROUND 34
+#define PRINT_MEM_LIST 35
 
 void sys_write(char * string, int size){
   _call_int_80( (uint64_t) WRITE, 1, (uint64_t) string, (uint64_t)size, 0, 0);
@@ -146,4 +147,8 @@ void sys_set_foreground_process(int pid){
 
 int sys_is_current_process_foreground(){
 	return (int)_call_int_80(IS_CURRENT_PROCESS_FOREGROUND, 0, 0, 0, 0, 0);
+}
+
+void sys_print_mem_list(){
+	_call_int_80(PRINT_MEM_LIST, 0, 0, 0, 0, 0);
 }

@@ -45,6 +45,7 @@
 #define MUTEX_UNLOCK 32
 #define SET_FOREGROUND_PROCESS 33
 #define IS_CURRENT_PROCESS_FOREGROUND 34
+#define PRINT_MEM_LIST 35
 
 //si pongo #include <mem_manager.h> se rompe
 void * mem_alloc(size_t size);
