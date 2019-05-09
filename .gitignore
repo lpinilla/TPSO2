@@ -50,19 +50,21 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-*.vscode/
 
+# OS Compilation files
 *.bin
 *.sys
-
 *.img
-
 *.qcow2
-
 *.vmdk
 *.ipch
 
-.vscode
+#Tasteful Framework
+*.tasty
+tasteful
 
+# Extra
+*.vscode/
+.vscode
 .bash_history
 .gdb_history
