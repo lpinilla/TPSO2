@@ -1,8 +1,8 @@
-#ifndef _MUTEX_H
-#define _MUTEX_H
+#ifndef _MUTEX_H_
+#define _MUTEX_H_
 
-#include <process.h>
-#include <scheduler.h>
+#include "./process.h"
+#include "./scheduler.h"
 
 void lock_mutex();
 void unlock_mutex();

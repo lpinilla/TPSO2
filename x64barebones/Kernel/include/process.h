@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include <stdint.h>
-#include <lib.h>
+#include "./lib.h"
 
 #define STACK_SIZE 4096
 

@@ -1,4 +1,4 @@
-#include <ipc.h>
+#include "./include/ipc.h"
 
 void init_mailbox(){
     mailbox_index = 0;
@@ -9,7 +9,7 @@ void my_write(char * msg, int rpid, int spid){
     int mid = 0, free_spot = 0;
     //vemos si podemos escribir
     //if semaforo == MAX_MESSAGES -> block;
-    lock_mutex();   //ganar el recurso
+    //lock_mutex();   //ganar el recurso
     //encontrar el 1er espacio libre
     for(int i = 0; i < MAX_MESSAGES; i++){
         if((mailbox[i].spid == 0 && mailbox[i].rpid == 0) || mailbox[i].seen == 1){
@@ -26,14 +26,14 @@ void my_write(char * msg, int rpid, int spid){
     }
     str_cpy(msg, mailbox[free_spot].msg); //copiamos el mensaje a la estructura
     //sem_post(sem) sumarle al semáforo para indicar que hay un mensaje disponible
-    unlock_mutex();    //liberar el recurso
+    //unlock_mutex();    //liberar el recurso
 }
 
 void my_read(int rpid, char * ret){
     int found = 0;
     found++; //para que compile -> BORRAR
     //sem_wait(sem);    //esperar al semáforo a qué haya algo para leer
-    lock_mutex();   //ganar el recurso
+    //lock_mutex();   //ganar el recurso
     for(int i = 0; i < MAX_MESSAGES; i++){
         //ver si el mensaje es para un pid que esta vivo
         if(mailbox[i].rpid == rpid){
@@ -43,7 +43,7 @@ void my_read(int rpid, char * ret){
         }
     }
     //if(!found) sem_post(sem); //decrementar el semáforo número si se leyó
-    unlock_mutex();    //liberar el recurso
+    //unlock_mutex();    //liberar el recurso
 }
 
 void * get_mailbox_address(){

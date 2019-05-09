@@ -66,10 +66,12 @@ void * mem_alloc(size_t size){
 
 
 void free_mem(void * ptr){
+    //lock
     root = free_node(root, ptr);
     if(root == NULL){
         //ncPrint("Error liberando, mal puntero indicado");
     }
+    //unlock
 }
 
 
@@ -83,21 +85,24 @@ Node free_node(Node curr, void * mem_ptr){
             return curr;
         }else if((curr->prev != NULL && curr->prev->status != P) && (curr->next == NULL || curr->next->status == P)){
             //caso libre izq -> se agranda izq
-            curr->prev->size = curr->size + sizeof(struct t_Node);
+            curr->prev->size += curr->size + sizeof(struct t_Node);
             if(curr->next != NULL) curr->next->prev = curr->prev;
             return curr->next;
         }else if((curr->prev == NULL || curr->prev->status == P)  && (curr->next != NULL && curr->next->status != P)){
             //caso libre der -> me agrando yo
             curr->status = F;
-            curr->size = curr->next->size + sizeof(struct t_Node);
+            curr->size += curr->next->size + sizeof(struct t_Node);
             if(curr->next->next != NULL) curr->next->next->prev = curr;
             curr->next = curr->next->next;            
             return curr;
         }else if((curr->prev != NULL && curr->prev->status != P)  && (curr->next != NULL && curr->next->status != P)){
-            //caso libre de ambos lados -> se agranda la izq mi tamaño y el de mi derecha
-            curr->prev->size = curr->size + curr->next->size + 2 * sizeof(struct t_Node);
-            if(curr->next->next != NULL) curr->next->next->prev = curr->prev;
-            return curr->next->next;
+            //caso libre de ambos lados -> se agranda la izq el tamaño mío más el de la derecha
+            curr->prev->size += curr->size + curr->next->size + 2 * sizeof(struct t_Node);
+            if(curr->next->next != NULL){
+                curr->next->next->prev = curr->prev;
+                return curr->next->next;
+            }
+            return NULL;
         }
     }
     curr->next = free_node(curr->next, mem_ptr);

@@ -1,7 +1,7 @@
 #ifndef _SCHEDULER_H
 #define _SCHEDULER_H
 
-#include <process.h>
+#include "./process.h"
 
 void init_scheduler();
 void run_process(process_t process);

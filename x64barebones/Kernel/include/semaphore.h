@@ -2,11 +2,11 @@
 #define _SEMAPHORE_H
 
 #include <stdint.h>
-#include <process.h>
-#include <scheduler.h>
-#include <mem_manager.h>
-#include <lib.h>
-#include <interrupts.h>
+#include "./process.h"
+#include "./scheduler.h"
+#include "./mem_manager.h"
+#include "./lib.h"
+#include "./interrupts.h"
 
 #define MAX_SEMAPHORES 128
 #define MAX_SEMAPHORE_NAME 256
