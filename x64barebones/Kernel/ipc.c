@@ -37,7 +37,7 @@ void my_read(int rpid, char * ret){
     for(int i = 0; i < MAX_MESSAGES; i++){
         //ver si el mensaje es para un pid que esta vivo
         if(mailbox[i].rpid == rpid){
-            memcpy(ret, mailbox[i].msg, strlen2(mailbox[i].msg));
+            memcpy(ret, mailbox[i].msg, str_len(mailbox[i].msg));
             mailbox[i].seen = 1;
             break;
         }

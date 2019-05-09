@@ -53,10 +53,7 @@ void * initializeKernelBinary(){
 	load_idt();
 
 	initialize_list(memory_location, 1024*1024 *100); //creo que le puse 100mb de memoria
-	*((char *) memory_location)='h';
-	*((char *) memory_location + 1)='o';
-	*((char *) memory_location + 2)='l';
-	*((char *) memory_location + 3)='a';
+
 	init_graphics();
 
 	// inicializamos el scheduler
@@ -69,7 +66,7 @@ void init(){
 	clear_screen();
 	//ACA ES DONDE SALTA A USERLAND, COMENTAR ESTA LINEA SI QUEREMOS PROBAR COSAS DE KERNEL
 	uint64_t start = (uint64_t)((EntryPoint)sampleCodeModuleAddress);
-	process_t process = create_process(start, "system");
+	process_t process = create_process(start, "shell");
 	run_process(process);
 }
 

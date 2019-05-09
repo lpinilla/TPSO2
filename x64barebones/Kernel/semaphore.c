@@ -24,7 +24,7 @@ static int global_sid = 0;
 int my_sem_open(char * name){
 
     for(int i = 0; i < global_sid; i++){
-        if(all_semaphores[i] != NULL && strcmp2((char*)all_semaphores[i]->name, name) == 0){
+        if(all_semaphores[i] != NULL && str_cmp((char*)all_semaphores[i]->name, name) == 0){
             return i;
         }
     }
