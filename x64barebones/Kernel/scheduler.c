@@ -16,6 +16,7 @@ static void set_next_process();
 //LISTA DE NODOS CIRCULAR PARA LOS PROCESOS
 //TODO PROCESO SE AGREGA AL FINAL, SIGUIENDO EL ALGORITMO ROUND ROBIN
 static node_t current_process;
+static node_t first_process;
 static node_t last_process;
 static size_t number_of_processes;
 
@@ -33,6 +34,7 @@ void run_process(process_t process){
         last_process->next = last_process;
         last_process->prev = last_process;
         current_process = last_process;
+        first_process = current_process;
         set_state(current_process->element, P_RUNNING);
         _change_process(get_stack_pointer(process));
     }
@@ -102,7 +104,7 @@ uint64_t switch_process(uint64_t stack_pointer){
 }
 
 void print_current_processes(){
-    node_t aux = current_process;
+    node_t aux = first_process;
     for(int i = 0; i < number_of_processes; i++){
         print_process(aux->element);
         aux = aux->next;
