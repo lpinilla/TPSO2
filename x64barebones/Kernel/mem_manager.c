@@ -1,17 +1,5 @@
 //incluirlo manualmente para los tests
 #include "./include/mem_manager.h"
-#include "./include/graphics.h"
-
-enum STATUS {P = 0, F = 1};
-
-struct t_Node{ 
-    struct t_Node * next, *prev;
-    void * mem_ptr;
-    size_t size;
-    enum STATUS status;
-};
-
-typedef struct t_Node * Node;
 
 /*función que implementa first fit en la lista de alocación,
 **si el espacio que encuentra es más grande que el pedido y hay espacio
@@ -120,7 +108,7 @@ void * mem_alloc(size_t size){
 void free_mem(void * ptr){
     root = free_node(root, ptr);
     if(root == NULL){
-        draw_string("Error al liberar memoria.\n");
+        //draw_string("Error al liberar memoria.\n");
     }
 }
 
@@ -129,15 +117,15 @@ void print_list(){
 }
 
 static void print_r_list(Node curr){
-    if(curr == NULL){
-        return;
-    }
-    draw_string("mem_ptr:");
-    draw_number((uint64_t)curr->mem_ptr);
-    draw_string(" status");
-    draw_number(curr->status);
-    draw_string(" size");
-    draw_number(curr->size);
-    draw_string("\n");
-    print_r_list(curr->next);
+    // if(curr == NULL){
+    //     return;
+    // }
+    // draw_string("mem_ptr:");
+    // draw_number((uint64_t)curr->mem_ptr);
+    // draw_string(" status");
+    // draw_number(curr->status);
+    // draw_string(" size");
+    // draw_number(curr->size);
+    // draw_string("\n");
+    // print_r_list(curr->next);
 }

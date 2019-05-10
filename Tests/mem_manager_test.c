@@ -35,7 +35,7 @@ void initialize_test(){
     //revisar que esta la estructura creada
     struct t_Node expected = {.next = NULL, .prev = NULL,
                      .mem_ptr = (void *) ((char *) mem + sizeof(struct t_Node)),
-                     .size = size,
+                     .size = size - sizeof(struct t_Node),
                      .status = F};
     Node result = (Node) mem;
     ret = (result->next == expected.next) && (result->prev == expected.prev) 
