@@ -90,6 +90,12 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
       case PRINT_MEM_LIST:
         print_list();  
         break;
+      case IPC_READ:
+        my_read((int)rsi, (char *)rdx);
+        break;
+      case IPC_WRITE:
+        my_write((char *)rsi, (int)rdx);
+        break;
   }
 	return 0;
 }

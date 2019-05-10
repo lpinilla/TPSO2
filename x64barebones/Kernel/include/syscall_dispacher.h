@@ -12,6 +12,7 @@
 #include <process.h>
 #include <mutex.h>
 #include <semaphore.h>
+#include <ipc.h>
 
 #define READ 3
 #define WRITE 4
@@ -46,6 +47,8 @@
 #define SET_FOREGROUND_PROCESS 33
 #define IS_CURRENT_PROCESS_FOREGROUND 34
 #define PRINT_MEM_LIST 35
+#define IPC_READ 36
+#define IPC_WRITE 37
 
 //si pongo #include <mem_manager.h> se rompe
 void * mem_alloc(size_t size);

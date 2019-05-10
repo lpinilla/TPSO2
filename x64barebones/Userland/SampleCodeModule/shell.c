@@ -1,9 +1,9 @@
 #include "include/shell.h"
 
 
-static func execute_command[]={invalid_command,play_pong,show_time,shutdown,make_beep,make_div,ayuda,try_scan_f,try_print_f,try_invalid_function, try_processes, ps, try_mutex, try_semaphore, try_alloc};
+static func execute_command[]={invalid_command,play_pong,show_time,shutdown,make_beep,make_div,ayuda,try_scan_f,try_print_f,try_invalid_function, try_processes, ps, try_mutex, try_semaphore, try_alloc, try_ipc};
 
-const char * commands[] = {"pong", "time","shutdown","beep","div","ayuda","scan","print","invalid", "processes_test", "ps", "mutex_test", "semaphore_test", "alloc_test"};
+const char * commands[] = {"pong", "time","shutdown","beep","div","help","scan","print","invalid", "processes_test", "ps", "mutex_test", "semaphore_test", "alloc_test", "ipc_test"};
 
 static int command_handler(char * command);
 
@@ -99,6 +99,10 @@ void try_alloc(){
 	mem_manager_test();
 }
 
+void try_ipc(){
+	ipc_test();
+}
+
 void ps(){
 	sys_create_process(sys_print_all_procceses, "ps", FOREGROUND);
 }
@@ -146,6 +150,7 @@ void ayuda(){
 	print_f("processes_test - prueba la creacion, borrado y listado de procesos \n");
 	print_f("mutex_test - prueba la funcion mutex \n");
 	print_f("semaphore_test - prueba los semáforos \n");
+	print_f("ipc_test - prueba los ipc \n");
 	print_f("print - prueba el comando de print_f con el formato \"%%s \\n \" \n\n\n");
 	return;
 }

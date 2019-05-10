@@ -11,6 +11,7 @@
 #include <scheduler.h>
 #include <semaphore.h>
 #include <interrupts.h>
+#include <ipc.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -58,6 +59,7 @@ void * initializeKernelBinary(){
 	init_scheduler();
 	init_semaphores();
 	init_processes();
+	init_mailbox();
 
 	return getStackBase();
 }

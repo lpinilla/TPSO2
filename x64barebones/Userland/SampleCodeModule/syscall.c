@@ -33,6 +33,8 @@
 #define SET_FOREGROUND_PROCESS 33
 #define IS_CURRENT_PROCESS_FOREGROUND 34
 #define PRINT_MEM_LIST 35
+#define IPC_READ 36
+#define IPC_WRITE 37
 
 void sys_write(char * string, int size){
   _call_int_80( (uint64_t) WRITE, 1, (uint64_t) string, (uint64_t)size, 0, 0);
@@ -151,4 +153,12 @@ int sys_is_current_process_foreground(){
 
 void sys_print_mem_list(){
 	_call_int_80(PRINT_MEM_LIST, 0, 0, 0, 0, 0);
+}
+
+void sys_ipc_read(int id, char * msg_ret){
+	_call_int_80(IPC_READ, (uint64_t)id, (uint64_t)msg_ret, 0, 0, 0);
+}
+
+void sys_ipc_write(char * msg, int id){
+	_call_int_80(IPC_WRITE, (uint64_t)msg, (uint64_t)id, 0, 0, 0);
 }

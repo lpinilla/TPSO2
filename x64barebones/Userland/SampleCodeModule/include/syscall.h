@@ -37,5 +37,7 @@ void sys_unlock();
 void sys_set_foreground_process(int pid);
 int sys_is_current_process_foreground();
 void sys_print_mem_list();
+void sys_ipc_read(int id, char * msg_ret);
+void sys_ipc_write(char * msg, int id);
 
 #endif
