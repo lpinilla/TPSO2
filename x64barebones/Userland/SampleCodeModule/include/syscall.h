@@ -6,6 +6,7 @@
 #include "./utilities.h"
 
 typedef enum {P_READY, P_RUNNING, P_WAITING, P_TERMINATE} pstate_t;
+typedef enum {BACKGROUND, FOREGROUND} pground_t;
 
 void sys_write(char * string, int size);
 char sys_read(char * string, int size);
@@ -23,7 +24,7 @@ int sys_time(int selector);
 void * sys_my_malloc(int size);
 void sys_my_free(void* ptr);
 void * sys_start_of_mem();
-int sys_create_process(void * function, char * name, int foreground);
+int sys_create_process(void * function, char * name, pground_t process_ground);
 void sys_kill_process(int pid);
 void sys_print_all_procceses();
 pstate_t sys_get_process_state(int pid);

@@ -44,9 +44,17 @@ typedef struct {
 static uint64_t init_stack(process_t process, uint64_t process_start, uint64_t stack_pointer); 
 static void process_caller(process_t process, uint64_t process_start);
 
-static size_t global_pid = 0;
+static size_t global_pid;
 static process_t all_processes[MAX_PROCESSES];
-static process_t foreground_process = NULL;
+static process_t foreground_process;
+
+void init_processes(){
+	global_pid = 0;
+	foreground_process = NULL;
+	for(int i = 0; i < MAX_PROCESSES; i++){
+		all_processes[i] = NULL;
+	}
+}
 
 process_t create_process(uint64_t process_start, char * process_name){
 
@@ -188,7 +196,7 @@ static void process_caller(process_t process, uint64_t process_start){
 	if(foreground_process == process){
 		set_foreground_process(process->ppid);
 	}
-	kill_process();
+	kill_current_process();
 }
 
 pstate_t get_state_id(size_t pid){

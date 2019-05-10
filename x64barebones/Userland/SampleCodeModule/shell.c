@@ -100,11 +100,11 @@ void try_alloc(){
 }
 
 void ps(){
-	sys_print_all_procceses();
+	sys_create_process(sys_print_all_procceses, "ps", FOREGROUND);
 }
 
 void make_div(){
-	sys_create_process(make_div_process, "Div Exception", 1);
+	sys_create_process(make_div_process, "Div Exception", FOREGROUND);
 	sys_beep();
 }
 
@@ -123,7 +123,7 @@ void try_scan_f(){
 }
 
 void try_invalid_function(){
-	sys_create_process(try_invalid_function_process, "Invalid Code Exception", 1);
+	sys_create_process(try_invalid_function_process, "Invalid Code Exception", FOREGROUND);
 	sys_beep();
 }
 

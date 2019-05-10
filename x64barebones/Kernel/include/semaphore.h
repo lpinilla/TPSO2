@@ -8,9 +8,10 @@
 #include "./lib.h"
 #include "./interrupts.h"
 
-#define MAX_SEMAPHORES 128
+#define MAX_SEMAPHORES 256
 #define MAX_SEMAPHORE_NAME 256
 
+void init_semaphores();
 int my_sem_open(char * name);
 int my_sem_close(int sid);
 int my_sem_post(int sid);

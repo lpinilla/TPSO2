@@ -49,7 +49,7 @@ void run_process(process_t process){
     }
 }
 
-void kill_process(){
+void kill_current_process(){
 
     number_of_processes--;
 
@@ -75,7 +75,7 @@ static void set_next_process(){
     pstate_t pstate = get_state(current_process->element);
 
     if(pstate == P_TERMINATE){
-        kill_process();
+        kill_current_process();
     }
     else if(pstate == P_WAITING){
         set_next_process();

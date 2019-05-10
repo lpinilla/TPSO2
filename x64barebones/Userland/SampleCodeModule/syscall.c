@@ -101,8 +101,8 @@ void * sys_start_of_mem(){
 	return (void *) _call_int_80(MEM_BASE, 0, 0,0,0,0);
 }
 
-int sys_create_process(void * function, char * name, int foreground){
-	return (int)_call_int_80(NEW_PROCESS, (uint64_t)function, (uint64_t) name, (uint64_t)foreground, 0, 0);
+int sys_create_process(void * function, char * name, pground_t process_ground){
+	return (int)_call_int_80(NEW_PROCESS, (uint64_t)function, (uint64_t) name, (uint64_t)process_ground, 0, 0);
 }
 
 void sys_kill_process(int pid){

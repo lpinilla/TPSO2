@@ -9,6 +9,7 @@
 #include <mem_manager.h>
 #include <process.h>
 #include <scheduler.h>
+#include <semaphore.h>
 #include <interrupts.h>
 
 extern uint8_t text;
@@ -52,12 +53,11 @@ void * initializeKernelBinary(){
 	clearBSS(&bss, &endOfKernel - &bss);
 	load_idt();
 
-	initialize_list(memory_location, 1024*1024 *100); //creo que le puse 100mb de memoria
-
+	initialize_list(memory_location, 1024*1024*100); // 100 Mb
 	init_graphics();
-
-	// inicializamos el scheduler
 	init_scheduler();
+	init_semaphores();
+	init_processes();
 
 	return getStackBase();
 }

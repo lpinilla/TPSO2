@@ -19,7 +19,14 @@ typedef struct semaphoreADT{
 typedef struct semaphoreADT * semaphore_t;
 
 static semaphore_t all_semaphores[MAX_SEMAPHORES];
-static int global_sid = 0;
+static int global_sid;
+
+void init_semaphores(){
+    for(int i = 0; i< MAX_SEMAPHORES; i++){
+        all_semaphores[i] = NULL;
+    }
+    global_sid = 0;
+}
 
 int my_sem_open(char * name){
 
