@@ -77,10 +77,10 @@ uint64_t syscall_dispacher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rc
       case SEM_WAIT:
         return (uint64_t)my_sem_wait((int)rsi);
       case MUTEX_LOCK:
-        lock_mutex();
+        lock_mutex((void *)rsi);
         break;
       case MUTEX_UNLOCK:
-        unlock_mutex();
+        unlock_mutex((void *)rsi);
         break;
       case SET_FOREGROUND_PROCESS:
         set_foreground_process((size_t)rsi);

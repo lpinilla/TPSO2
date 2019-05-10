@@ -10,6 +10,7 @@ typedef t_Message * Message;
 
 static Message mailbox[MAX_MESSAGES];
 static int sem;
+static int lock;
 
 void init_mailbox(){
     for(int i=0; i < MAX_MESSAGES; i++){
@@ -17,13 +18,14 @@ void init_mailbox(){
     }
     sem = my_sem_open("ipc");
     my_sem_wait(sem);
+    lock = 0;
 }
 
 void my_write(char * msg, int id){
     int i, found = 0;
     //vemos si podemos escribir
     //if semaforo == MAX_MESSAGES -> block;
-    lock_mutex();   //ganar el recurso
+    lock_mutex(&lock);   //ganar el recurso
     //encontrar el 1er espacio libre
     for(i = 0; i < MAX_MESSAGES && !found; i++){
         if( mailbox[i] == NULL ){
@@ -36,13 +38,13 @@ void my_write(char * msg, int id){
     
     mailbox[i] = aux;
     my_sem_post(sem); //sumarle al semáforo para indicar que hay un mensaje disponible
-    unlock_mutex();    //liberar el recurso
+    unlock_mutex(&lock);    //liberar el recurso
 }
 
 void my_read(int id, char * ret){
     int found = 0;
     my_sem_wait(sem);    //esperar al semáforo a qué haya algo para leer
-    lock_mutex();   //ganar el recurso
+    lock_mutex(&lock);   //ganar el recurso
     for(int i = 0; i < MAX_MESSAGES && !found; i++){
         //ver si el mensaje es para un pid que esta vivo
         if(mailbox[i]->id == id){
@@ -53,7 +55,7 @@ void my_read(int id, char * ret){
         }
     }
     if(!found) my_sem_post(sem); //decrementar el semáforo número si se leyó
-    unlock_mutex();    //liberar el recurso
+    unlock_mutex(&lock);    //liberar el recurso
 }
 
 void * get_mailbox_address(){

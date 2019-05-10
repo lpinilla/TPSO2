@@ -135,12 +135,12 @@ int sys_sem_wait(int id){
 	return (int)_call_int_80(SEM_WAIT, (uint64_t)id, 0, 0, 0, 0);
 }
 
-void sys_lock(){
-	_call_int_80(MUTEX_LOCK, 0, 0, 0, 0, 0);
+void sys_lock(void * lock){
+	_call_int_80(MUTEX_LOCK, (uint64_t)lock, 0, 0, 0, 0);
 }
 
-void sys_unlock(){
-	_call_int_80(MUTEX_UNLOCK, 0, 0, 0, 0, 0);
+void sys_unlock(void * lock){
+	_call_int_80(MUTEX_UNLOCK, (uint64_t)lock, 0, 0, 0, 0);
 }
 
 void sys_set_foreground_process(int pid){
