@@ -24,6 +24,7 @@ void init_mailbox(){
 void my_write(char * msg, int id){
     int i, found = 0;
     //vemos si podemos escribir
+    while(my_sem_get_value(sem) > MAX_MESSAGES);
     lock_mutex(&lock);   //ganar el recurso
     //encontrar el 1er espacio libre
     for(i = 0; i < MAX_MESSAGES && !found; i++){

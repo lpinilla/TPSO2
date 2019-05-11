@@ -116,6 +116,10 @@ int my_sem_wait(int sid){
     return semaphore->value;
 }
 
+int my_sem_get_value(int sid){
+    return all_semaphores[sid]->value;
+}
+
 void my_sem_print(int sid){
     semaphore_t m = all_semaphores[sid];
 	draw_string("SID: ");
