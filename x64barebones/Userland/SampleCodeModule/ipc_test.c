@@ -48,8 +48,8 @@ void ipc_child3_process(){
 void ipc_test(){
 
 	child1 = sys_create_process(ipc_child1_process, "First Child Process", FOREGROUND);
-    child3 = sys_create_process(ipc_child3_process, "Third Child Process", BACKGROUND);
 	child2 = sys_create_process(ipc_child2_process, "Second Child Process", BACKGROUND);
+    child3 = sys_create_process(ipc_child3_process, "Third Child Process", BACKGROUND);
 
     while(!sys_is_current_process_foreground()){}
 	print_f("\nCurrent Processes: \n");

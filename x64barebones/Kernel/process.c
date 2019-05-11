@@ -2,6 +2,7 @@
 #include <scheduler.h>
 #include <mem_manager.h>
 #include <graphics.h>
+#include <interrupts.h>
 
 typedef struct processADT {
 	char * name[MAX_PROCESS_NAME];
@@ -95,8 +96,9 @@ void delete_process(process_t process){
 
 void set_state(process_t process, pstate_t state){
     process->state = state;
-	if(state == P_TERMINATE){
+	if(state == P_TERMINATE && process == foreground_process){
 		foreground_process = all_processes[process->ppid];
+		_context_switch_process();
 	}
 }
 
