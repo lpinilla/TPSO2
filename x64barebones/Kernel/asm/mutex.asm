@@ -8,14 +8,14 @@ _spin_lock:
 
     xchg rax, [rdi]
 
-    test rax, rax
+    cmp rax, 0
 
     jnz _spin_lock
 
     ret
 
 _spin_unlock:
-    xor rax, rax
+    mov rax, 0
 
     xchg rax, [rdi]
 

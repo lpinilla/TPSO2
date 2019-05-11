@@ -20,6 +20,7 @@ void mutex_test(){
     sys_create_process(variable_lock_test, "M_TEST4", BACKGROUND);
     sys_create_process(variable_lock_test, "M_TEST5", BACKGROUND);
     sys_print_all_procceses();
+    while(x < 10000);
     sys_sleep(10);
     print_f("Should be 10000 : %d \n", x);
 }

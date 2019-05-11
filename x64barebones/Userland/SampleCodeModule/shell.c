@@ -155,6 +155,7 @@ void ayuda(){
 	print_f("mutex_test - prueba la funcion mutex \n");
 	print_f("semaphore_test - prueba los semáforos \n");
 	print_f("ipc_test - prueba los ipc \n");
+	print_f("prodcons - ejecuta el el proceso prodcons \n");
 	print_f("print - prueba el comando de print_f con el formato \"%%s \\n \" \n\n\n");
 	return;
 }
