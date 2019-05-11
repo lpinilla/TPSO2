@@ -24,7 +24,6 @@ void init_mailbox(){
 void my_write(char * msg, int id){
     int i, found = 0;
     //vemos si podemos escribir
-    //if semaforo == MAX_MESSAGES -> block;
     lock_mutex(&lock);   //ganar el recurso
     //encontrar el 1er espacio libre
     for(i = 0; i < MAX_MESSAGES && !found; i++){
@@ -54,7 +53,13 @@ void my_read(int id, char * ret){
             mailbox[i] = NULL;
         }
     }
-    if(!found) my_sem_post(sem); //decrementar el semáforo número si se leyó
+    if(!found){
+        my_sem_post(sem); //decrementar el semáforo número si se leyó
+        unlock_mutex(&lock);
+        _context_switch_process();
+        my_read(id, ret);
+        return;
+    }
     unlock_mutex(&lock);    //liberar el recurso
 }
 
