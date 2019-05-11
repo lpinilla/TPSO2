@@ -3,32 +3,13 @@ Sistema basado en x64BareBones para la arquitectura Intel 64.
 
 ## Para ejecutar el sistema:
 
-1- Instale los siguentes paquetes antes de compilar el Toolchain y Kernel:
+1- Instalar docker
 
-```
-sudo apt-get install nasm qemu gcc make
-```
+2- Ejecutar el sistema
 
-2- Compilar el Toolchain
-
-Desde el directorio x64barebones ejecutar:
+Desde el directorio x64barebones ejecutar(escribiendo el nombre de usuario en <username>):
 ```
-cd Toolchain
-make all
-```
-
-3- Compilar el Kernel
-
-Desde el directorio x64barebones ejecutar:
-```
-make all
-```
-
-4- Ejecutar el sistema
-
-Desde el directorio x64barebones ejecutar:
-```
-./run.sh
+sudo ./docker.sh <username>
 ```
 
 ## Desde el sistema ejecutar el siguiente comando para ver utilidades:
