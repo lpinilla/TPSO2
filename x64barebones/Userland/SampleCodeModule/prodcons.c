@@ -61,8 +61,8 @@ void prodcons(){
     int running = 1;
 
     sem_buffer = sys_sem_open("buffer");
+    sys_sem_post(sem_buffer);
     sem_prodcons = sys_sem_open("prodcons");
-    sys_sem_wait(sem_prodcons);
     buffer = 0;
     consumers_size = 0;
     producers_size = 0;

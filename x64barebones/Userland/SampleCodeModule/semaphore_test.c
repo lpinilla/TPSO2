@@ -12,11 +12,9 @@ static int child3;
 
 void sem_child1_process(){
     sys_sleep(5);
-    sys_sem_wait(sem);
-    print_f("Sem Consumed from First Child\n");
     print_f("Current Processes: \n");
     sys_print_all_procceses();
-
+    sys_new_line();
     print_f("Sem Post from First Child\n");
     sys_set_foreground_process(child2);
     sys_sleep(10);
@@ -42,6 +40,7 @@ void sem_child3_process(){
     sys_sleep(10);
     sys_sem_wait(sem);
     print_f("Sem Consumed from Third Child\n");
+    sys_new_line();
     sys_set_foreground_process(child1);
 }
 

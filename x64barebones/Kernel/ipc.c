@@ -8,7 +8,6 @@ static int lock;
 void init_mailbox(){
     memset(mailbox, 0, MAX_MESSAGES * sizeof(Message));
     sem = my_sem_open("ipc");
-    my_sem_wait(sem);
     lock = 0;
 }
 

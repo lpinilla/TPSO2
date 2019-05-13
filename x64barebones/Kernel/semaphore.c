@@ -40,7 +40,7 @@ int my_sem_open(char * name){
 
     str_cpy(name, (char *)new_semaphore->name);
     new_semaphore->sid = global_sid;
-    new_semaphore->value = 1;
+    new_semaphore->value = 0;
     new_semaphore->first_waiting_process = NULL;
     new_semaphore->last_waiting_process = NULL;
 
