@@ -11,6 +11,7 @@ typedef struct processADT {
     pstate_t state;
 	uint64_t stack_start;
     uint64_t stack_pointer;
+	int priority;
 } processADT;
 
 typedef struct {
@@ -57,7 +58,7 @@ void init_processes(){
 	}
 }
 
-process_t create_process(uint64_t process_start, char * process_name){
+process_t create_process(uint64_t process_start, char * process_name, int priority){
 
     process_t new_process = (process_t)mem_alloc(sizeof(*new_process));
 	str_cpy(process_name, (char*)(new_process->name));
@@ -65,6 +66,7 @@ process_t create_process(uint64_t process_start, char * process_name){
     new_process->state = P_READY;
 	new_process->stack_start = (uint64_t)mem_alloc(STACK_SIZE);
     new_process->stack_pointer = init_stack(new_process, process_start, new_process->stack_start);
+	new_process->priority = priority;
 	if(global_pid != 0){
 		new_process->ppid = get_current_process()->pid;
 	}
@@ -185,6 +187,8 @@ void print_process(process_t process){
 	else{
 		draw_string(" PROCESS IN: BACKGROUND");
 	}
+	draw_string(" PRIORITY: ");
+	draw_number(process->priority);
 
 	new_line();
 }
@@ -196,6 +200,10 @@ static void process_caller(process_t process, uint64_t process_start){
 		set_foreground_process(process->ppid);
 	}
 	kill_current_process();
+}
+
+int get_priority(process_t process){
+	return process->priority;
 }
 
 pstate_t get_state_id(size_t pid){
