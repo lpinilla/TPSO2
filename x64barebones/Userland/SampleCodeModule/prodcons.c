@@ -11,11 +11,22 @@ static int consumers[MAX_CONSUMERS];
 static int producers_size;
 static int consumers_size;
 
+
+void consume_buffer(){
+    if(buffer>0){
+        buffer--;
+    }
+}
+
+void produce_buffer(){
+    buffer++;
+}
+
 void producer(){
     while(1){
         sys_sleep(5);
         sys_sem_wait(sem_buffer);
-        buffer++;
+        produce_buffer();
         sys_sem_post(sem_prodcons);
         sys_sem_post(sem_buffer);
     }
@@ -26,7 +37,7 @@ void consumer(){
         sys_sleep(5);
         sys_sem_wait(sem_prodcons);
         sys_sem_wait(sem_buffer);
-        buffer--;
+        consume_buffer();
         sys_sem_post(sem_buffer);
     }
 }
