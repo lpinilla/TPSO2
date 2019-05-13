@@ -10,6 +10,13 @@
 #define MAX_MESSAGES 256
 #define MAX_MESSAGE_SIZE 256
 
+typedef struct{
+    int id;
+    char msg[MAX_MESSAGE_SIZE];
+}t_Message;
+
+typedef t_Message * Message;
+
 void init_mailbox();
 void * get_mailbox_address();
 void my_write(char * msg, int id);

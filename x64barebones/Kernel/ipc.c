@@ -1,21 +1,12 @@
 #include "./include/ipc.h"
 #include "./include/semaphore.h"
 
-typedef struct{
-    int id;
-    char msg[MAX_MESSAGE_SIZE];
-}t_Message;
-
-typedef t_Message * Message;
-
 static Message mailbox[MAX_MESSAGES];
 static int sem;
 static int lock;
 
 void init_mailbox(){
-    for(int i=0; i < MAX_MESSAGES; i++){
-        mailbox[i] = NULL;
-    }
+    memset(mailbox, 0, MAX_MESSAGES * sizeof(Message));
     sem = my_sem_open("ipc");
     my_sem_wait(sem);
     lock = 0;
@@ -28,14 +19,11 @@ void my_write(char * msg, int id){
     lock_mutex(&lock);   //ganar el recurso
     //encontrar el 1er espacio libre
     for(i = 0; i < MAX_MESSAGES && !found; i++){
-        if( mailbox[i] == NULL ){
-            found = 1;
-        } 
+        if( mailbox[i] == NULL ) found = 1;
     }
     Message aux = mem_alloc(sizeof(t_Message));
     aux->id = id;
     str_cpy(msg, aux->msg);
-    
     mailbox[i] = aux;
     my_sem_post(sem); //sumarle al semáforo para indicar que hay un mensaje disponible
     unlock_mutex(&lock);    //liberar el recurso

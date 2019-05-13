@@ -30,11 +30,11 @@ static Node find_first_fit(Node curr, size_t size){
         size_t dif = curr->size - size;
         //si el espacio que sobra es suficiente, aloca un nuevo nodo
         if(dif > sizeof(struct t_Node)){
-            Node aux = (Node)(curr->mem_ptr + size);
+            Node aux = (Node)((char *) curr->mem_ptr + size);
 
             aux->next = curr->next;
             aux->prev = curr;
-            aux->mem_ptr = curr->mem_ptr + size + sizeof(struct t_Node);
+            aux->mem_ptr = (void *) ((char *) curr->mem_ptr + size + sizeof(struct t_Node));
             aux->size = dif - sizeof(struct t_Node);
             aux->status = F;
 
@@ -88,7 +88,7 @@ void initialize_list(void * start_ptr, size_t total_size){
 
     root->next = NULL;
     root->prev = NULL;
-    root->mem_ptr = start_ptr + sizeof(struct t_Node);
+    root->mem_ptr =  (void *) ((char *)start_ptr + sizeof(struct t_Node));
     root->size = total_size - sizeof(struct t_Node);
     root->status = F;
 }
