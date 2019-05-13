@@ -49,6 +49,7 @@
 #define PRINT_MEM_LIST 35
 #define IPC_READ 36
 #define IPC_WRITE 37
+#define NEW_PROCESS_PRIORITY 38
 
 //si pongo #include <mem_manager.h> se rompe
 void * mem_alloc(size_t size);
@@ -58,6 +59,6 @@ void * return_memory_base();
 int read(int param1, char * param2, int param3);
 void write(int param1, char * param2, int param3);
 void color_write(char * pointer, int size, int foreground_color, int background_color);
-size_t new_process(uint64_t process_start, char * process_name, int foreground);
+size_t new_process(uint64_t process_start, char * process_name, int foreground, int priority);
 
 #endif

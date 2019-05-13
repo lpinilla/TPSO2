@@ -7,6 +7,7 @@
 
 typedef enum {P_READY, P_RUNNING, P_WAITING, P_TERMINATE} pstate_t;
 typedef enum {BACKGROUND, FOREGROUND} pground_t;
+typedef enum {PRIORITY_1=1, PRIORITY_2, PRIORITY_3, PRIORITY_4} ppriority_t;
 
 void sys_write(char * string, int size);
 char sys_read(char * string, int size);
@@ -39,5 +40,6 @@ int sys_is_current_process_foreground();
 void sys_print_mem_list();
 void sys_ipc_read(int id, char * msg_ret);
 void sys_ipc_write(char * msg, int id);
+int sys_create_priority_process(void * function, char * name, pground_t process_ground, ppriority_t priority);
 
 #endif

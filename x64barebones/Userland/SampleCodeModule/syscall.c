@@ -35,6 +35,7 @@
 #define PRINT_MEM_LIST 35
 #define IPC_READ 36
 #define IPC_WRITE 37
+#define NEW_PROCESS_PRIORITY 38
 
 void sys_write(char * string, int size){
   _call_int_80( (uint64_t) WRITE, 1, (uint64_t) string, (uint64_t)size, 0, 0);
@@ -161,4 +162,8 @@ void sys_ipc_read(int id, char * msg_ret){
 
 void sys_ipc_write(char * msg, int id){
 	_call_int_80(IPC_WRITE, (uint64_t)msg, (uint64_t)id, 0, 0, 0);
+}
+
+int sys_create_priority_process(void * function, char * name, pground_t process_ground, ppriority_t priority){
+	return (int)_call_int_80(NEW_PROCESS, (uint64_t)function, (uint64_t) name, (uint64_t)process_ground, (uint64_t)priority, 0);
 }

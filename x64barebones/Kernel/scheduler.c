@@ -9,6 +9,7 @@ typedef struct nodeADT{
     process_t element;
     node_t prev;
     node_t next;
+    int quantum;
 }nodeADT;
 
 static void set_next_process();
@@ -33,6 +34,7 @@ void run_process(process_t process){
         last_process->element = process;
         last_process->next = last_process;
         last_process->prev = last_process;
+        last_process->quantum = 1;
         current_process = last_process;
         first_process = current_process;
         set_state(current_process->element, P_RUNNING);
@@ -43,6 +45,7 @@ void run_process(process_t process){
         aux->element = process;
         aux->next = last_process->next;
         aux->prev = last_process;
+        aux->quantum = 1;
         last_process->next->prev = aux;
         last_process->next = aux;
         last_process = aux;
@@ -70,7 +73,13 @@ void kill_current_process(){
 }
 
 static void set_next_process(){
-    current_process = current_process->next;
+    if(get_priority(current_process->element) % current_process->quantum == 0){
+        current_process = current_process->next;
+    }
+    else{
+        current_process->quantum++;
+        return;
+    }
 
     pstate_t pstate = get_state(current_process->element);
 
