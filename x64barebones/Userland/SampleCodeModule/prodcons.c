@@ -3,8 +3,8 @@
 #include "include/syscall.h"
 #include "include/utilities.h"
 
-static int buffer_lock;
-static int sem;
+static int sem_prodcons;
+static int sem_buffer;
 static int buffer;
 static int producers[MAX_PRODUCERS];
 static int consumers[MAX_CONSUMERS];
@@ -13,19 +13,21 @@ static int consumers_size;
 
 void producer(){
     while(1){
-        sys_lock(&buffer_lock);
+        sys_sleep(5);
+        sys_sem_wait(sem_buffer);
         buffer++;
-        sys_sem_post(sem);
-        sys_unlock(&buffer_lock);
+        sys_sem_post(sem_prodcons);
+        sys_sem_post(sem_buffer);
     }
 }
 
 void consumer(){
     while(1){
-        sys_sem_wait(sem);
-        sys_lock(&buffer_lock);
+        sys_sleep(5);
+        sys_sem_wait(sem_prodcons);
+        sys_sem_wait(sem_buffer);
         buffer--;
-        sys_unlock(&buffer_lock);
+        sys_sem_post(sem_buffer);
     }
 }
 
@@ -47,9 +49,9 @@ void prodcons(){
     char * consumer_name = "CONSUMER-N";
     int running = 1;
 
-    buffer_lock = 0;
-    sem = sys_sem_open("prodcons");
-    sys_sem_wait(sem);
+    sem_buffer = sys_sem_open("buffer");
+    sem_prodcons = sys_sem_open("prodcons");
+    sys_sem_wait(sem_prodcons);
     buffer = 0;
     consumers_size = 0;
     producers_size = 0;
@@ -93,7 +95,8 @@ void prodcons(){
                 while(consumers_size > 0){
                     terminate_last_consumer();
                 }
-                sys_sem_close(sem);
+                sys_sem_close(sem_buffer);
+                sys_sem_close(sem_prodcons);
                 break;
             case 'v':
                 sys_print_all_procceses();

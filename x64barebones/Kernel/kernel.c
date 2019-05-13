@@ -52,7 +52,7 @@ void * initializeKernelBinary(){
 
 	loadModules(&endOfKernelBinary, moduleAddresses);
 	clearBSS(&bss, &endOfKernel - &bss);
-	load_idt();
+
 
 	initialize_list(memory_location, 1024*1024*100); // 100 Mb
 	init_graphics();
@@ -60,6 +60,8 @@ void * initializeKernelBinary(){
 	init_semaphores();
 	init_processes();
 	init_mailbox();
+	
+	load_idt();
 
 	return getStackBase();
 }

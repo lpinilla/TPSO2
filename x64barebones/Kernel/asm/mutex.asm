@@ -8,7 +8,7 @@ _spin_lock:
 
     xchg rax, [rdi]
 
-    cmp rax, 0
+    test rax, rax
 
     jnz _spin_lock
 
