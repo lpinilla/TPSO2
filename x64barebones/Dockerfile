@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM agodio/itba-so:1.0
 
 RUN apt-get update && apt-get install -y \
       gcc \

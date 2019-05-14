@@ -73,7 +73,8 @@ void kill_current_process(){
 }
 
 static void set_next_process(){
-    if(get_priority(current_process->element) % current_process->quantum == 0){
+    if((get_priority(current_process->element) % current_process->quantum) == 0){
+        current_process->quantum = 1;
         current_process = current_process->next;
     }
     else{
